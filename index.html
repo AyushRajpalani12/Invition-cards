@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="protection.js"></script>
   <title>Artful Creations | Premium Digital Invitations</title>
   
   <!-- Google Fonts -->
@@ -117,6 +118,33 @@
       margin: 0 auto;
       line-height: 1.8;
       text-transform: uppercase;
+    }
+
+    /* Collection Sections */
+    .collection-section {
+      width: 100%;
+      margin-bottom: 50px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .collection-title {
+      font-family: var(--font-serif);
+      font-size: 25px;
+      letter-spacing: 3px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      margin-top: 30px;
+      text-shadow: 0 0 15px rgba(184, 147, 36, 0.2);
+    }
+
+    .collection-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 5px auto 35px;
+      line-height: 1.6;
     }
 
     /* Template Cards Grid */
@@ -383,90 +411,257 @@
       <button class="filter-btn" onclick="filterTemplates('birthday', event)">Birthday Invites</button>
     </div>
 
-    <div class="templates-grid">
-      
-      <!-- Template 1: Ivory Gold Modern -->
-      <div class="template-card wedding">
-        <div class="envelope-mockup mockup-ivory">
-          <div class="mockup-flap"></div>
-          <div class="mockup-seal"></div>
-        </div>
-        <h2 class="template-name">Ivory & Gold</h2>
-        <p class="template-desc">A sophisticated, modern design with a soft cream aesthetic, horizontal and vertical silk ribbons, and champagne sparkles.</p>
-        
-        <ul class="features-list">
-          <li><i class="fa-solid fa-gift"></i> 3D Silk Ribbon Bow Knot</li>
-          <li><i class="fa-solid fa-music"></i> Instrumental Chime on Unlock</li>
-          <li><i class="fa-solid fa-wand-magic-sparkles"></i> Champagne Gold Floating Dust</li>
-          <li><i class="fa-solid fa-calendar-check"></i> Interactive Event & Calendar Links</li>
-          <li><i class="fa-solid fa-circle-question"></i> Dynamic RSVP & Wishes Wall</li>
-        </ul>
-        
-        <a href="first.html" class="btn-preview">Live Preview</a>
+    <!-- WEDDING COLLECTION SECTION -->
+    <div class="collection-section wedding-section-block">
+      <h2 class="collection-title">Royal Wedding Collection</h2>
+      <div class="ornament-divider">
+        <span class="ornament-line"></span>
+        <i class="fa-solid fa-bell"></i>
+        <span class="ornament-line"></span>
       </div>
+      <p class="collection-subtitle">Exquisite multi-page invitations with custom 3D opening envelopes, classical music, and interactive date reveal elements.</p>
 
-      <!-- Template 2: Royal Maroon Traditional -->
-      <div class="template-card wedding">
-        <div class="envelope-mockup mockup-maroon">
-          <div class="mockup-flap"></div>
-          <div class="mockup-seal">M&A</div>
+      <div class="templates-grid">
+        
+        <!-- Template 1: Ivory Gold Modern -->
+        <div class="template-card wedding">
+          <div class="envelope-mockup mockup-ivory">
+            <div class="mockup-flap"></div>
+            <div class="mockup-seal"></div>
+          </div>
+          <h2 class="template-name">Ivory & Gold</h2>
+          <p class="template-desc">A sophisticated, modern design with a soft cream aesthetic, horizontal and vertical silk ribbons, and champagne sparkles.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-gift"></i> 3D Silk Ribbon Bow Knot</li>
+            <li><i class="fa-solid fa-music"></i> Instrumental Chime on Unlock</li>
+            <li><i class="fa-solid fa-wand-magic-sparkles"></i> Champagne Gold Floating Dust</li>
+            <li><i class="fa-solid fa-calendar-check"></i> Interactive Event & Calendar Links</li>
+            <li><i class="fa-solid fa-circle-question"></i> Dynamic RSVP & Wishes Wall</li>
+          </ul>
+          
+          <a href="first.html" class="btn-preview">Live Preview</a>
         </div>
-        <h2 class="template-name">Royal Maroon</h2>
-        <p class="template-desc">A rich traditional Indian wedding theme featuring embossed floral patterns, lord Ganesh iconography, Hindi shlokas, and falling rose petals.</p>
-        
-        <ul class="features-list">
-          <li><i class="fa-solid fa-stamp"></i> 3D Ivory Calligraphy Wax Seal</li>
-          <li><i class="fa-solid fa-om"></i> Lord Ganesh Icon & Hindi Shloka</li>
-          <li><i class="fa-solid fa-spa"></i> Falling Pink Rose Petals</li>
-          <li><i class="fa-solid fa-ticket"></i> Scratch Date Card to Reveal Date</li>
-          <li><i class="fa-solid fa-bell"></i> Traditional Flute/Shehnai Opening Melody</li>
-        </ul>
-        
-        <a href="second.html" class="btn-preview">Live Preview</a>
-      </div>
 
-      <!-- Template 3: Neon Cyber Party (Birthday) -->
-      <div class="template-card birthday">
-        <div class="envelope-mockup mockup-neon" style="background: #180930; border: 1.5px solid rgba(0, 240, 255, 0.3); box-shadow: 0 8px 20px rgba(0, 240, 255, 0.15);">
-          <!-- Glowing ribbon visual mockup -->
-          <div style="position: absolute; top:0; left:50%; transform:translateX(-50%); width:20px; height:100%; background:linear-gradient(to bottom, var(--neon-pink), var(--neon-purple)); box-shadow:0 0 6px var(--neon-pink);"></div>
-          <div style="position: absolute; top:50%; left:0; transform:translateY(-50%); width:100%; height:20px; background:linear-gradient(to right, var(--neon-pink), var(--neon-purple)); box-shadow:0 0 6px var(--neon-pink);"></div>
-          <div style="width: 32px; height: 32px; border-radius: 50%; background: #00f0ff; position: absolute; top: 50%; left:50%; transform:translate(-50%,-50%); box-shadow:0 0 10px #00f0ff; border: 1px solid #fff;"></div>
+        <!-- Template 2: Royal Maroon Traditional -->
+        <div class="template-card wedding">
+          <div class="envelope-mockup mockup-maroon">
+            <div class="mockup-flap"></div>
+            <div class="mockup-seal">M&A</div>
+          </div>
+          <h2 class="template-name">Royal Maroon</h2>
+          <p class="template-desc">A rich traditional Indian wedding theme featuring embossed floral patterns, lord Ganesh iconography, Hindi shlokas, and falling rose petals.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-stamp"></i> 3D Ivory Calligraphy Wax Seal</li>
+            <li><i class="fa-solid fa-om"></i> Lord Ganesh Icon & Hindi Shloka</li>
+            <li><i class="fa-solid fa-spa"></i> Falling Pink Rose Petals</li>
+            <li><i class="fa-solid fa-ticket"></i> Scratch Date Card to Reveal Date</li>
+            <li><i class="fa-solid fa-bell"></i> Traditional Flute/Shehnai Opening Melody</li>
+          </ul>
+          
+          <a href="second.html" class="btn-preview">Live Preview</a>
         </div>
-        <h2 class="template-name">Neon Cyber Party</h2>
-        <p class="template-desc">An energetic dark theme featuring glowing neon graphics, interactive 3D gift box unboxing, cyber-synth sound chords, and floaty party particles.</p>
-        
-        <ul class="features-list">
-          <li><i class="fa-solid fa-gift"></i> 3D Gift Box Unboxing</li>
-          <li><i class="fa-solid fa-bolt"></i> Cyber Synth Sound on Open</li>
-          <li><i class="fa-solid fa-circle-nodes"></i> Floating Glowing Neon Particles</li>
-          <li><i class="fa-solid fa-ticket"></i> Dress Code Reveal Scratch Card</li>
-          <li><i class="fa-solid fa-clock"></i> Sleek Digital Countdown Timer</li>
-        </ul>
-        
-        <a href="birthday1.html" class="btn-preview">Live Preview</a>
-      </div>
 
-      <!-- Template 4: Rose Gold Luxury (Birthday) -->
-      <div class="template-card birthday">
-        <div class="envelope-mockup mockup-rosegold" style="background: #543122; border: 1.5px solid rgba(195, 156, 99, 0.3); box-shadow: 0 8px 20px rgba(195, 156, 99, 0.2);">
-          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 60px; background: #44261a; clip-path: polygon(0 0, 100% 0, 50% 100%); border-bottom: 1px solid rgba(195, 156, 99, 0.2);"></div>
-          <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle, #ffebd5, #e2b785, #805628); position: absolute; top: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 8px; color: #543122; font-weight: bold; font-family: var(--font-serif);">M</div>
+        <!-- Template 3: Royal Indigo (Wedding Gate) -->
+        <div class="template-card wedding">
+          <div class="envelope-mockup mockup-indigo" style="background: #0d1b2a; border: 1.5px solid rgba(212, 175, 55, 0.3); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);">
+            <div style="position: absolute; top:0; left:50%; transform:translateX(-50%); width:2px; height:100%; background:#d4af37;"></div>
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: radial-gradient(circle, #ffe89c, #d4af37, #9a7615); position: absolute; top: 50%; left:50%; transform:translate(-50%,-50%); box-shadow: 0 3px 6px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center;">
+              <i class="fa-solid fa-om" style="font-size:10px; color:#5c4308;"></i>
+            </div>
+          </div>
+          <h2 class="template-name">Royal Indigo Gate</h2>
+          <p class="template-desc">A majestic indigo and gold theme featuring 3D swinging palace gates, a central golden Ganesha coin trigger, and sitar-shehnai jugalbandi.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-door-closed"></i> 3D Swinging Palace Gates</li>
+            <li><i class="fa-solid fa-coins"></i> Ganesh Medallion Coin Unlock</li>
+            <li><i class="fa-solid fa-wand-magic-sparkles"></i> Falling Shimmering Gold Dust</li>
+            <li><i class="fa-solid fa-ticket"></i> 3-Card Date Reveal Scratcher</li>
+            <li><i class="fa-solid fa-bell"></i> Sitar & Shehnai Instrumental Melody</li>
+          </ul>
+          
+          <a href="third.html" class="btn-preview">Live Preview</a>
         </div>
-        <h2 class="template-name">Rose Gold Luxury</h2>
-        <p class="template-desc">A premium birthday invitation styled with rose gold cardstock envelope, melting wax seal, floating bokeh bubbles, and a 3-card inline date scratcher.</p>
-        
-        <ul class="features-list">
-          <li><i class="fa-solid fa-stamp"></i> Melting Rose Gold Wax Seal</li>
-          <li><i class="fa-solid fa-spa"></i> Floating Bokeh Bubbles</li>
-          <li><i class="fa-solid fa-guitar"></i> Acoustic Pentatonic Sound Chord</li>
-          <li><i class="fa-solid fa-calendar-days"></i> 3-Card Date Reveal Scratcher</li>
-          <li><i class="fa-solid fa-list-ol"></i> Birthday Celebration Itinerary</li>
-        </ul>
-        
-        <a href="birthday2.html" class="btn-preview">Live Preview</a>
-      </div>
 
+        <!-- Template 4: Emerald Palace (Wedding Gate) -->
+        <div class="template-card wedding">
+          <div class="envelope-mockup mockup-emerald" style="background: #041c15; border: 1.5px solid rgba(230, 199, 156, 0.3); box-shadow: 0 8px 20px rgba(230, 199, 156, 0.2);">
+            <div style="position: absolute; top:0; left:50%; transform:translateX(-50%); width:2px; height:100%; background:#e2c293;"></div>
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: radial-gradient(circle, #fff1db, #e2c293, #b68f54); position: absolute; top: 50%; left:50%; transform:translate(-50%,-50%); box-shadow: 0 3px 6px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center; font-size: 8px; color: #583e18; font-weight: bold; font-family: var(--font-serif);">K&P</div>
+          </div>
+          <h2 class="template-name">Emerald Palace Gate</h2>
+          <p class="template-desc">A luxury emerald and champagne gold theme with closed floral palace doors, customized monogram initials coin, and classical wedding flute.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-door-open"></i> 3D Swinging Floral Palace Doors</li>
+            <li><i class="fa-solid fa-stamp"></i> Monogram Initials Medallion Coin</li>
+            <li><i class="fa-solid fa-spa"></i> Drifting Rose Petals & Gold Flakes</li>
+            <li><i class="fa-solid fa-hourglass-half"></i> Live Ceremony Countdown Timer</li>
+            <li><i class="fa-solid fa-music"></i> Classical Indian Wedding Flute Melody</li>
+          </ul>
+          
+          <a href="fourth.html" class="btn-preview">Live Preview</a>
+        </div>
+
+        <!-- Template 5: Royal Farman Scroll (Wedding) -->
+        <div class="template-card wedding">
+          <div class="envelope-mockup mockup-farman" style="background: #3a0007; border: 1.5px solid rgba(230, 199, 156, 0.35); box-shadow: 0 8px 20px rgba(184, 147, 36, 0.2); position: relative;">
+            <div style="position: absolute; top:-5px; left:0; width:100%; height:8px; background:linear-gradient(to right, #ffe89c, #be9d68, #ffe89c); border-radius:4px;"></div>
+            <div style="position: absolute; bottom:-5px; left:0; width:100%; height:8px; background:linear-gradient(to right, #ffe89c, #be9d68, #ffe89c); border-radius:4px;"></div>
+            <div style="width: 28px; height: 28px; border-radius: 50%; background: #be9d68; border: 1.5px solid #fff; position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.4);">
+              <i class="fa-solid fa-scroll" style="font-size:10px; color:#5c4308;"></i>
+            </div>
+          </div>
+          <h2 class="template-name">Royal Farman Scroll</h2>
+          <p class="template-desc">An imperial crimson and gold scroll invitation that unrolls vertically from handle rods, featuring conch shell chime sounds and sitar tunes.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-scroll"></i> 3D Vertical Scroll Unrolling</li>
+            <li><i class="fa-solid fa-signature"></i> Royal Gold Wax Seal Trigger</li>
+            <li><i class="fa-solid fa-wind"></i> Conch Shell & Chime Playback</li>
+            <li><i class="fa-solid fa-sparkles"></i> Floating Gold Dust & Star Particles</li>
+            <li><i class="fa-solid fa-music"></i> Traditional Santoor & Sitar Soundtrack</li>
+          </ul>
+          
+          <a href="fifth.html" class="btn-preview">Live Preview</a>
+        </div>
+
+        <!-- Template 6: Sapphire Quad-Flap (Wedding) -->
+        <div class="template-card wedding">
+          <div class="envelope-mockup mockup-sapphire" style="background: #020c1b; border: 1.5px solid rgba(226, 194, 147, 0.3); box-shadow: 0 8px 20px rgba(226, 194, 147, 0.25); position: relative;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column;">
+              <div style="flex:1; display:flex;">
+                <div style="flex:1; border-right: 1px solid rgba(226, 194, 147, 0.25); border-bottom: 1px solid rgba(226, 194, 147, 0.25);"></div>
+                <div style="flex:1; border-left: 1px solid rgba(226, 194, 147, 0.25); border-bottom: 1px solid rgba(226, 194, 147, 0.25);"></div>
+              </div>
+              <div style="flex:1; display:flex;">
+                <div style="flex:1; border-right: 1px solid rgba(226, 194, 147, 0.25); border-top: 1px solid rgba(226, 194, 147, 0.25);"></div>
+                <div style="flex:1; border-left: 1px solid rgba(226, 194, 147, 0.25); border-top: 1px solid rgba(226, 194, 147, 0.25);"></div>
+              </div>
+            </div>
+            <div style="width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle, #ffebd5, #e2b785, #805628); position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); border: 1px solid rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center; box-shadow:0 3px 6px rgba(0,0,0,0.3); font-size:8px; color:#543122; font-weight:bold;">S&K</div>
+          </div>
+          <h2 class="template-name">Sapphire Quad-Flap</h2>
+          <p class="template-desc">A deep sapphire blue theme featuring a 4-flap unfolding envelope opening sequence, circular monogram coin, and traditional shehnai.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-square"></i> 3D Quad-Flap Envelope Unfolding</li>
+            <li><i class="fa-solid fa-stamp"></i> Custom Initial Monogram Medal</li>
+            <li><i class="fa-solid fa-circle-nodes"></i> Floating Rose Gold Glitter Stars</li>
+            <li><i class="fa-solid fa-hourglass-start"></i> Ceremony Live Countdown Clock</li>
+            <li><i class="fa-solid fa-music"></i> Traditional Shehnai & Sitar Melody</li>
+          </ul>
+          
+          <a href="sixth.html" class="btn-preview">Live Preview</a>
+        </div>
+
+        <!-- Template 7: Royal Gold & Ivory Book Flip (Wedding) -->
+        <div class="template-card wedding">
+          <div class="envelope-mockup mockup-book" style="background: #faf8f5; border: 1.5px solid rgba(212, 175, 55, 0.45); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2); position: relative;">
+            <!-- Book binding edge visual -->
+            <div style="position: absolute; top:0; left:0; width:8px; height:100%; background:linear-gradient(to right, #d4af37, #be9d68); border-radius: 4px 0 0 4px;"></div>
+            <!-- Gold seal clasp at center-right -->
+            <div style="width: 26px; height: 26px; border-radius: 5px; background: #be9d68; border: 1px solid #fff; position: absolute; top:50%; left:20px; transform:translateY(-50%); display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.3);">
+              <i class="fa-solid fa-lock" style="font-size:9px; color:#5c4308;"></i>
+            </div>
+          </div>
+          <h2 class="template-name">Royal Book Flip</h2>
+          <p class="template-desc">A premium gold and ivory book-style layout that flips its front cover to the left in 3D, featuring jasmine flower blossoms and bansuri flute music.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-book-open"></i> 3D Left-Flapping Book Cover</li>
+            <li><i class="fa-solid fa-key"></i> Decorative Gold Clasp Unlock</li>
+            <li><i class="fa-solid fa-spa"></i> Falling White Jasmine & Gold Flakes</li>
+            <li><i class="fa-solid fa-ticket"></i> 3-Card Date Reveal Scratcher</li>
+            <li><i class="fa-solid fa-music"></i> Soothing Classical Flute & Santoor</li>
+          </ul>
+          
+          <a href="seventh.html" class="btn-preview">Live Preview</a>
+        </div>
+
+        <!-- Template 8: Teal Lotus Blossom Bloom (Wedding) -->
+        <div class="template-card wedding">
+          <div class="envelope-mockup mockup-lotus" style="background: #003d33; border: 1.5px solid rgba(212, 175, 55, 0.35); box-shadow: 0 8px 20px rgba(0, 95, 115, 0.2); position: relative;">
+            <!-- Overlapping circles representing closed lotus bud -->
+            <div style="position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:50px; height:50px; border-radius:50%; border:1px solid rgba(212, 175, 55, 0.3); background:radial-gradient(circle, #005f73, #003d33);"></div>
+            <div style="width: 24px; height: 24px; border-radius: 50%; background: #ffd700; position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); border:1px solid #fff; box-shadow:0 2px 4px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center;">
+              <i class="fa-solid fa-om" style="font-size:9px; color:#5c4308;"></i>
+            </div>
+          </div>
+          <h2 class="template-name">Teal Lotus Bloom</h2>
+          <p class="template-desc">A deep peacock teal and gold theme that unfolds 8 golden lotus petals outward in 3D, featuring classical shehnai & sitar tunes.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-seedling"></i> 3D Lotus Petals Blossom Bloom</li>
+            <li><i class="fa-solid fa-star"></i> Central Golden Flower Bud Trigger</li>
+            <li><i class="fa-solid fa-circle-nodes"></i> Floating Teal Sparkles & Gold Dust</li>
+            <li><i class="fa-solid fa-clock"></i> Ceremony Live Countdown Clock</li>
+            <li><i class="fa-solid fa-music"></i> Traditional Shehnai & Sitar Duet</li>
+          </ul>
+          
+          <a href="eighth.html" class="btn-preview">Live Preview</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BIRTHDAY COLLECTION SECTION -->
+    <div class="collection-section birthday-section-block">
+      <h2 class="collection-title">Premium Birthday Collection</h2>
+      <div class="ornament-divider">
+        <span class="ornament-line"></span>
+        <i class="fa-solid fa-cake-candles"></i>
+        <span class="ornament-line"></span>
+      </div>
+      <p class="collection-subtitle">Vibrant, elegant celebrations featuring 3D gift box openings, soothing pastel palettes, and interactive timelines.</p>
+
+      <div class="templates-grid">
+        
+        <!-- Template 3: Neon Cyber Party (Birthday) -->
+        <div class="template-card birthday">
+          <div class="envelope-mockup mockup-neon" style="background: #180930; border: 1.5px solid rgba(0, 240, 255, 0.3); box-shadow: 0 8px 20px rgba(0, 240, 255, 0.15);">
+            <!-- Glowing ribbon visual mockup -->
+            <div style="position: absolute; top:0; left:50%; transform:translateX(-50%); width:20px; height:100%; background:linear-gradient(to bottom, var(--neon-pink), var(--neon-purple)); box-shadow:0 0 6px var(--neon-pink);"></div>
+            <div style="position: absolute; top:50%; left:0; transform:translateY(-50%); width:100%; height:20px; background:linear-gradient(to right, var(--neon-pink), var(--neon-purple)); box-shadow:0 0 6px var(--neon-pink);"></div>
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: #00f0ff; position: absolute; top: 50%; left:50%; transform:translate(-50%,-50%); box-shadow:0 0 10px #00f0ff; border: 1px solid #fff;"></div>
+          </div>
+          <h2 class="template-name">Neon Cyber Party</h2>
+          <p class="template-desc">An energetic dark theme featuring glowing neon graphics, interactive 3D gift box unboxing, cyber-synth sound chords, and floaty party particles.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-gift"></i> 3D Gift Box Unboxing</li>
+            <li><i class="fa-solid fa-bolt"></i> Cyber Synth Sound on Open</li>
+            <li><i class="fa-solid fa-circle-nodes"></i> Floating Glowing Neon Particles</li>
+            <li><i class="fa-solid fa-ticket"></i> Dress Code Reveal Scratch Card</li>
+            <li><i class="fa-solid fa-clock"></i> Sleek Digital Countdown Timer</li>
+          </ul>
+          
+          <a href="birthday1.html" class="btn-preview">Live Preview</a>
+        </div>
+
+        <!-- Template 4: Rose Gold Luxury (Birthday) -->
+        <div class="template-card birthday">
+          <div class="envelope-mockup mockup-rosegold" style="background: #543122; border: 1.5px solid rgba(195, 156, 99, 0.3); box-shadow: 0 8px 20px rgba(195, 156, 99, 0.2);">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 60px; background: #44261a; clip-path: polygon(0 0, 100% 0, 50% 100%); border-bottom: 1px solid rgba(195, 156, 99, 0.2);"></div>
+            <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle, #ffebd5, #e2b785, #805628); position: absolute; top: 50px; box-shadow: 0 3px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 8px; color: #543122; font-weight: bold; font-family: var(--font-serif);">M</div>
+          </div>
+          <h2 class="template-name">Rose Gold Luxury</h2>
+          <p class="template-desc">A premium birthday invitation styled with rose gold cardstock envelope, melting wax seal, floating bokeh bubbles, and a 3-card inline date scratcher.</p>
+          
+          <ul class="features-list">
+            <li><i class="fa-solid fa-stamp"></i> Melting Rose Gold Wax Seal</li>
+            <li><i class="fa-solid fa-spa"></i> Floating Bokeh Bubbles</li>
+            <li><i class="fa-solid fa-guitar"></i> Acoustic Pentatonic Sound Chord</li>
+            <li><i class="fa-solid fa-calendar-days"></i> 3-Card Date Reveal Scratcher</li>
+            <li><i class="fa-solid fa-list-ol"></i> Birthday Celebration Itinerary</li>
+          </ul>
+          
+          <a href="birthday2.html" class="btn-preview">Live Preview</a>
+        </div>
+
+      </div>
     </div>
 
     <footer>
@@ -482,22 +677,41 @@
       buttons.forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
 
-      const cards = document.querySelectorAll('.template-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.classList.contains(category)) {
-          card.style.display = 'flex';
+      const weddingSection = document.querySelector('.wedding-section-block');
+      const birthdaySection = document.querySelector('.birthday-section-block');
+
+      if (category === 'all') {
+        weddingSection.style.display = 'block';
+        birthdaySection.style.display = 'block';
+        setTimeout(() => {
+          weddingSection.style.opacity = '1';
+          weddingSection.style.transform = 'translateY(0)';
+          birthdaySection.style.opacity = '1';
+          birthdaySection.style.transform = 'translateY(0)';
+        }, 50);
+      } else if (category === 'wedding') {
+        birthdaySection.style.opacity = '0';
+        birthdaySection.style.transform = 'translateY(15px)';
+        setTimeout(() => {
+          birthdaySection.style.display = 'none';
+          weddingSection.style.display = 'block';
           setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'scale(1)';
+            weddingSection.style.opacity = '1';
+            weddingSection.style.transform = 'translateY(0)';
           }, 50);
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.95)';
+        }, 350);
+      } else if (category === 'birthday') {
+        weddingSection.style.opacity = '0';
+        weddingSection.style.transform = 'translateY(15px)';
+        setTimeout(() => {
+          weddingSection.style.display = 'none';
+          birthdaySection.style.display = 'block';
           setTimeout(() => {
-            card.style.display = 'none';
-          }, 350);
-        }
-      });
+            birthdaySection.style.opacity = '1';
+            birthdaySection.style.transform = 'translateY(0)';
+          }, 50);
+        }, 350);
+      }
     }
 
     // Particle canvas background for the hub page (floating gold/champagne glitter)

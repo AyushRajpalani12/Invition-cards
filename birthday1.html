@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Code Protection -->
+  <script src="protection.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birthday Bash Invitation | Aarav's 25th</title>
@@ -18,23 +20,23 @@
 
   <style>
     html {
-      background-color: #05020a;
+      background-color: #D4EBE0;
     }
 
     /* -----------------------------------------
-       DESIGN SYSTEM (NEON CYBERGLOW)
+       DESIGN SYSTEM (SOOTHING MINT PASTEL)
        ----------------------------------------- */
     :root {
-      --bg-dark: linear-gradient(135deg, #090312 0%, #15092a 50%, #030106 100%);
-      --panel-bg: rgba(22, 12, 38, 0.65);
-      --neon-cyan: #00f0ff;
-      --neon-pink: #ff007f;
-      --neon-purple: #9d00ff;
-      --text-light: #f3effa;
-      --text-muted: #a395be;
-      --border-glow: 0 0 10px rgba(0, 240, 255, 0.25);
+      --bg-dark: linear-gradient(135deg, #FAF8F5 0%, #E8F2EA 50%, #D4EBE0 100%);
+      --panel-bg: rgba(255, 255, 255, 0.92);
+      --neon-cyan: #3C7A57;       /* Forest Mint Green */
+      --neon-pink: #C87A53;       /* Terracotta Peach */
+      --neon-purple: #E2A98A;     /* Soft Light Peach */
+      --text-light: #264D38;      /* Deep Forest Green for dark text */
+      --text-muted: #6E675F;      /* Soft Slate Brown */
+      --border-glow: 0 4px 15px rgba(60, 122, 87, 0.1);
       
-      --font-display: 'Orbitron', sans-serif;
+      --font-display: 'Playfair Display', serif;
       --font-body: 'Montserrat', sans-serif;
       --font-cursive: 'Great Vibes', cursive;
       --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -81,7 +83,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at center, #1b0c2e 0%, #05020a 100%);
+      background: radial-gradient(circle at center, #FAF8F5 0%, #D4EBE0 100%);
       z-index: 9999;
       display: flex;
       justify-content: center;
@@ -124,9 +126,9 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #180930 0%, #2f125a 100%);
-      border: 2px solid var(--neon-cyan);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.2);
+      background: linear-gradient(135deg, #E8F2EA 0%, #C8E6C9 100%);
+      border: 2px solid #A5D6A7;
+      box-shadow: 0 8px 24px rgba(60, 122, 87, 0.12), inset 0 0 15px rgba(255, 255, 255, 0.6);
       border-radius: 12px;
       display: flex;
       flex-direction: column;
@@ -143,8 +145,8 @@
       transform: translateX(-50%);
       width: 44px;
       height: 100%;
-      background: linear-gradient(to bottom, var(--neon-pink), var(--neon-purple));
-      box-shadow: 0 0 12px var(--neon-pink);
+      background: linear-gradient(to bottom, #FFE0B2, #FFCC80);
+      box-shadow: 0 2px 8px rgba(200, 122, 83, 0.15);
       z-index: 6;
     }
 
@@ -155,8 +157,8 @@
       transform: translateY(-50%);
       width: 100%;
       height: 44px;
-      background: linear-gradient(to right, var(--neon-pink), var(--neon-purple));
-      box-shadow: 0 0 12px var(--neon-pink);
+      background: linear-gradient(to right, #FFE0B2, #FFCC80);
+      box-shadow: 0 2px 8px rgba(200, 122, 83, 0.15);
       z-index: 6;
     }
 
@@ -185,21 +187,20 @@
 
     .tap-text {
       position: absolute;
-      bottom: -60px;
+      bottom: -35px;
       left: 50%;
       transform: translateX(-50%);
       font-family: var(--font-display);
       font-size: 11px;
       letter-spacing: 3px;
       color: var(--neon-cyan);
-      text-shadow: 0 0 8px var(--neon-cyan);
       white-space: nowrap;
       animation: neonPulse 1.5s infinite alternate;
     }
 
     @keyframes neonPulse {
-      from { opacity: 0.3; text-shadow: 0 0 2px var(--neon-cyan); }
-      to { opacity: 1; text-shadow: 0 0 12px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+      from { opacity: 0.4; }
+      to { opacity: 1; }
     }
 
     /* Inner card sliding out of the box */
@@ -209,10 +210,10 @@
       left: 6%;
       width: 88%;
       height: 80%;
-      background: #0f0a1c;
+      background: #FAF8F5;
       border: 2px solid var(--neon-pink);
       border-radius: 8px;
-      box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
+      box-shadow: 0 8px 24px rgba(200, 122, 83, 0.12);
       z-index: 3;
       padding: 20px;
       display: flex;
@@ -228,7 +229,7 @@
     .inner-card-border {
       width: 100%;
       height: 100%;
-      border: 1px solid rgba(255, 0, 127, 0.3);
+      border: 1px solid rgba(200, 122, 83, 0.3);
       border-radius: 6px;
       display: flex;
       flex-direction: column;
@@ -242,16 +243,15 @@
       font-family: var(--font-display);
       font-size: 18px;
       color: var(--neon-cyan);
-      text-shadow: 0 0 10px var(--neon-cyan);
       margin-bottom: 8px;
       text-transform: uppercase;
+      font-weight: 700;
     }
 
     .inner-subtitle {
       font-family: var(--font-cursive);
       font-size: 32px;
       color: var(--neon-pink);
-      text-shadow: 0 0 8px var(--neon-pink);
       margin-bottom: 15px;
     }
 
@@ -269,7 +269,7 @@
       font-family: var(--font-display);
       font-size: 13px;
       color: var(--text-light);
-      border-top: 1px solid rgba(255, 0, 127, 0.2);
+      border-top: 1px solid rgba(200, 122, 83, 0.25);
       padding-top: 6px;
       letter-spacing: 2px;
     }
@@ -361,9 +361,9 @@
       text-align: center;
       padding: 40px 20px;
       background: var(--panel-bg);
-      border: 1px solid rgba(0, 240, 255, 0.2);
+      border: 1px solid rgba(60, 122, 87, 0.15);
       border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 240, 255, 0.05);
+      box-shadow: var(--border-glow);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       margin-bottom: 40px;
@@ -372,7 +372,6 @@
     .glow-header-icon {
       font-size: 44px;
       color: var(--neon-pink);
-      text-shadow: 0 0 15px var(--neon-pink);
       margin-bottom: 15px;
       animation: float-icon 2.5s infinite alternate ease-in-out;
     }
@@ -387,7 +386,6 @@
       font-size: 14px;
       letter-spacing: 5px;
       color: var(--neon-cyan);
-      text-shadow: 0 0 8px var(--neon-cyan);
       text-transform: uppercase;
       margin-bottom: 10px;
     }
@@ -400,7 +398,7 @@
       text-transform: uppercase;
       margin-bottom: 12px;
       letter-spacing: 1px;
-      background: linear-gradient(to right, #fff, #b49fdb);
+      background: linear-gradient(to right, #264D38, #3C7A57);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -409,7 +407,6 @@
       font-family: var(--font-cursive);
       font-size: 28px;
       color: var(--neon-pink);
-      text-shadow: 0 0 8px var(--neon-pink);
       margin-bottom: 25px;
     }
 
@@ -418,8 +415,8 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--text-muted);
-      border-top: 1px solid rgba(0, 240, 255, 0.15);
-      border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+      border-top: 1px solid rgba(60, 122, 87, 0.15);
+      border-bottom: 1px solid rgba(60, 122, 87, 0.15);
       display: inline-block;
       padding: 10px 24px;
       margin-top: 10px;
@@ -428,11 +425,11 @@
     /* Content Cards/Sections */
     section {
       background: var(--panel-bg);
-      border: 1px solid rgba(0, 240, 255, 0.15);
+      border: 1px solid rgba(60, 122, 87, 0.15);
       border-radius: 16px;
       padding: 40px 30px;
       margin-bottom: 40px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: var(--border-glow);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       transition: var(--transition-smooth);
@@ -440,8 +437,8 @@
 
     section:hover {
       transform: translateY(-4px);
-      border-color: rgba(0, 240, 255, 0.35);
-      box-shadow: 0 12px 40px rgba(0, 240, 255, 0.1);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 8px 24px rgba(60, 122, 87, 0.15);
     }
 
     .section-title {
@@ -449,7 +446,6 @@
       font-size: 20px;
       letter-spacing: 3px;
       color: var(--neon-cyan);
-      text-shadow: 0 0 8px var(--neon-cyan);
       text-transform: uppercase;
       text-align: center;
       margin-bottom: 30px;
@@ -457,6 +453,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
+      font-weight: 700;
     }
 
     .section-title i {
@@ -477,14 +474,14 @@
     .countdown-box {
       width: 75px;
       height: 75px;
-      border: 1px solid rgba(0, 240, 255, 0.2);
+      border: 1px solid rgba(60, 122, 87, 0.18);
       border-radius: 10px;
-      background: rgba(14, 8, 25, 0.8);
+      background: #FAF8F5;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
+      box-shadow: 0 4px 10px rgba(60, 122, 87, 0.06);
     }
 
     .countdown-val {
@@ -492,7 +489,6 @@
       font-size: 26px;
       font-weight: 700;
       color: var(--text-light);
-      text-shadow: 0 0 8px rgba(255,255,255,0.4);
     }
 
     .countdown-lbl {
@@ -545,7 +541,6 @@
     .scratch-reveal-content i {
       font-size: 32px;
       color: var(--neon-pink);
-      text-shadow: 0 0 10px var(--neon-pink);
       margin-bottom: 10px;
     }
 
@@ -561,7 +556,6 @@
       font-size: 18px;
       font-weight: 700;
       color: var(--neon-cyan);
-      text-shadow: 0 0 8px var(--neon-cyan);
       text-transform: uppercase;
     }
 
@@ -605,7 +599,7 @@
       top: 0;
       width: 2px;
       height: 100%;
-      background: linear-gradient(to bottom, var(--neon-pink) 0%, rgba(157, 0, 255, 0.1) 100%);
+      background: linear-gradient(to bottom, var(--neon-pink) 0%, rgba(60, 122, 87, 0.1) 100%);
     }
 
     .timeline-item {
@@ -620,16 +614,16 @@
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: var(--bg-dark);
+      background: #FAF8F5;
       border: 2px solid var(--neon-cyan);
-      box-shadow: 0 0 8px var(--neon-cyan);
     }
 
     .timeline-card {
-      background: rgba(14, 8, 25, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: #FAF8F5;
+      border: 1px solid rgba(60, 122, 87, 0.12);
       border-radius: 10px;
       padding: 18px;
+      box-shadow: 0 3px 10px rgba(60, 122, 87, 0.04);
     }
 
     .timeline-time {
@@ -637,7 +631,6 @@
       font-size: 11px;
       letter-spacing: 2px;
       color: var(--neon-pink);
-      text-shadow: 0 0 6px var(--neon-pink);
       display: block;
       margin-bottom: 5px;
       text-transform: uppercase;
@@ -667,7 +660,6 @@
       font-family: var(--font-display);
       font-size: 18px;
       color: var(--neon-cyan);
-      text-shadow: 0 0 8px var(--neon-cyan);
       margin-bottom: 6px;
     }
 
@@ -740,8 +732,8 @@
     }
 
     .form-control {
-      background: rgba(14, 8, 25, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #FAF8F5;
+      border: 1px solid rgba(60, 122, 87, 0.2);
       border-radius: 8px;
       padding: 12px 15px;
       color: var(--text-light);
@@ -753,7 +745,7 @@
     .form-control:focus {
       outline: none;
       border-color: var(--neon-cyan);
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+      box-shadow: 0 0 8px rgba(60, 122, 87, 0.12);
     }
 
     .radio-group {
@@ -791,20 +783,20 @@
       text-transform: uppercase;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(255, 0, 127, 0.1);
+      box-shadow: 0 2px 6px rgba(200, 122, 83, 0.1);
       transition: var(--transition-smooth);
       margin-top: 10px;
     }
 
     .btn-submit:hover {
       background: var(--neon-pink);
-      color: var(--text-light);
-      box-shadow: 0 0 25px var(--neon-pink);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(200, 122, 83, 0.2);
     }
 
     .wishes-display {
       margin-top: 30px;
-      border-top: 1px dashed rgba(0, 240, 255, 0.15);
+      border-top: 1px dashed rgba(60, 122, 87, 0.15);
       padding-top: 25px;
     }
 
@@ -837,11 +829,12 @@
     }
 
     .wish-card {
-      background: rgba(14, 8, 25, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: #FAF8F5;
+      border: 1px solid rgba(60, 122, 87, 0.12);
       border-radius: 8px;
       padding: 15px;
       position: relative;
+      box-shadow: 0 2px 8px rgba(60, 122, 87, 0.04);
     }
 
     .wish-header {
@@ -889,7 +882,6 @@
       font-family: var(--font-display);
       font-size: 22px;
       color: var(--neon-pink);
-      text-shadow: 0 0 10px var(--neon-pink);
       margin-bottom: 8px;
     }
 
@@ -898,6 +890,66 @@
       font-size: 10px;
       letter-spacing: 3px;
       color: var(--neon-cyan);
+    }
+
+    /* -----------------------------------------
+       RESPONSIVE & MOBILE POLISH
+       ----------------------------------------- */
+    @media (max-width: 600px) {
+      .celebrant-name {
+        font-size: clamp(28px, 8vw, 38px);
+      }
+      .celebrant-quote {
+        font-size: clamp(20px, 5vw, 26px);
+      }
+      .inner-title {
+        font-size: 24px !important;
+      }
+      .inner-subtitle {
+        font-size: 18px !important;
+      }
+      #main-content {
+        padding: 20px 10px 80px;
+      }
+      section {
+        padding: 25px 15px;
+        margin-bottom: 25px;
+        border-radius: 12px;
+      }
+      .section-title {
+        font-size: 18px !important;
+      }
+      .countdown-val {
+        font-size: clamp(20px, 6vw, 28px) !important;
+      }
+      .countdown-lbl {
+        font-size: 9px !important;
+        letter-spacing: 1px !important;
+      }
+      .form-control, .rsvp-btn {
+        font-size: 12.5px !important;
+      }
+      .timeline-time {
+        font-size: 11px !important;
+      }
+      .timeline-title {
+        font-size: 13px !important;
+      }
+      .map-card iframe {
+        height: 250px !important;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .gift-box-wrapper {
+        transform: scale(0.8);
+      }
+      .gift-box-wrapper:hover {
+        transform: translateY(-8px) scale(0.82) rotateY(10deg);
+      }
+      #intro-envelope {
+        perspective: 800px;
+      }
     }
   </style>
 </head>
@@ -1110,7 +1162,7 @@
 
   <!-- BACKGROUND MUSIC AUDIO -->
   <audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+    <source src="https://archive.org/download/jamendo-584881/01-2213678-Avalon%20Audio-Diwali%20Indian.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -1125,7 +1177,7 @@
       venueName: "Club Neon Lounge",
       venueAddress: "MG Road Extension, Indiranagar, Bengaluru, Karnataka 560038",
       mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0264104278403!2d77.64024227596001!3d12.970102615608678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae16ac26cc40a5%3A0xc47e335b1d4c7287!2sIndiranagar%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
-      bgMusicUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      bgMusicUrl: "https://archive.org/download/jamendo-584881/01-2213678-Avalon%20Audio-Diwali%20Indian.mp3"
     };
 
     const defaultWishes = [
@@ -1408,16 +1460,16 @@
       canvas.width = rect.width || 320;
       canvas.height = rect.height || 180;
 
-      // Draw metallic neon gray mask
+      // Draw soothing pastel mask
       const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      grad.addColorStop(0, '#1c1035');
-      grad.addColorStop(0.5, '#351860');
-      grad.addColorStop(1, '#0c051a');
+      grad.addColorStop(0, '#E8F2EA');
+      grad.addColorStop(0.5, '#C8E6C9');
+      grad.addColorStop(1, '#A5D6A7');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw neon grid lines for scratching card
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
+      // Draw grid lines
+      ctx.strokeStyle = 'rgba(60, 122, 87, 0.15)';
       ctx.lineWidth = 1;
       const step = 20;
       for (let x = 0; x < canvas.width; x += step) {
@@ -1428,14 +1480,12 @@
       }
 
       // Add scratch clue text
-      ctx.fillStyle = '#00f0ff';
-      ctx.font = 'bold 12px Orbitron, sans-serif';
+      ctx.fillStyle = '#264D38';
+      ctx.font = 'bold 12px Montserrat, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.shadowBlur = 6;
-      ctx.shadowColor = '#00f0ff';
-      ctx.fillText('SCRATCH WITH POINTER', canvas.width / 2, canvas.height / 2);
       ctx.shadowBlur = 0;
+      ctx.fillText('SCRATCH TO REVEAL', canvas.width / 2, canvas.height / 2);
 
       let isDrawing = false;
       let revealed = false;

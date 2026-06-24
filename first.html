@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Code Protection -->
+  <script src="protection.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation | Manjeet & Sikha</title>
+  <title>Wedding Invitation | Shivam & Sikha</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="You are cordially invited to celebrate the wedding of Manjeet & Sikha. Save the date and join us!">
+  <meta name="description" content="You are cordially invited to celebrate the wedding of Shivam & Sikha. Save the date and join us!">
   <meta name="keywords" content="wedding invitation, digital wedding card, RSVP, wedding countdown">
   
   <!-- Google Fonts -->
@@ -52,8 +54,14 @@
       padding: 0;
     }
 
+    html {
+      background-color: #eae2d0;
+    }
+
     body {
       background: var(--bg-gradient);
+      background-attachment: fixed;
+      background-size: cover;
       color: var(--text-light);
       font-family: var(--font-body);
       overflow-x: hidden;
@@ -1016,7 +1024,8 @@
        ----------------------------------------- */
     .hero-names {
       font-family: var(--font-cursive);
-      font-size: 72px;
+      font-size: clamp(38px, 8vw, 72px);
+      line-height: 1.2;
       color: var(--gold-primary);
       text-shadow: 0 4px 10px rgba(0,0,0,0.5);
       margin: 15px 0;
@@ -2126,7 +2135,7 @@
       <div id="headerMonogram" style="display: none;"></div>
 
       <div class="hero-sub">The Wedding Invitation</div>
-      <div class="hero-names" id="heroTitle">Manjeet & Sikha</div>
+      <div class="hero-names" id="heroTitle">Shivam & Sikha</div>
       <div class="ornament-divider">
         <span class="ornament-line"></span>
         <i class="fa-solid fa-leaf" style="color: var(--gold-primary); font-size: 14px;"></i>
@@ -2402,7 +2411,7 @@
 
     <!-- FOOTER -->
     <footer>
-      <div class="footer-names" id="footerTitle">Manjeet & Sikha</div>
+      <div class="footer-names" id="footerTitle">Shivam & Sikha</div>
       <div class="footer-quote">"Two souls, one heart, sharing a lifetime of love and dreams."</div>
       <div class="footer-copyright">© 2026. Made with love by Artful Creations. All rights reserved.</div>
     </footer>
@@ -2416,7 +2425,7 @@
 
   <!-- AUDIO ELEMENT -->
   <audio id="bgAudio" loop preload="auto">
-    <source id="audioSrc" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <source id="audioSrc" src="https://archive.org/download/dni.ncaa.SPK-35-SP/SPK-35-SP_SIDE_A.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -2428,12 +2437,12 @@
        A. DATA CONFIGURATION & INITIAL VALUES
        ----------------------------------------- */
     let weddingConfig = {
-      groom: "Manjeet",
+      groom: "Shivam",
       bride: "Sikha",
       date: "2026-12-18",
       venue: "The Royal Palace, Grand Ballroom, Udaipur, Rajasthan",
       mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.2711681283626!2d73.68261317596001!3d24.579848556447234!2m3!1f0!2f0!3f0!3m2!1i1024!2i769!4f13.1!3m3!1m2!1s0x3967e564506c172d%3A0xa6212e3e6022879!2sCity%20Palace!5e0!3m2!1sen!2sin!4v1719230000000!5m2!1sen!2sin",
-      audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      audioUrl: "https://archive.org/download/dni.ncaa.SPK-35-SP/SPK-35-SP_SIDE_A.mp3",
       theme: "emerald"
     };
 

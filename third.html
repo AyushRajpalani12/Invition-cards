@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Code Protection -->
+  <script src="protection.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation | Artful Creations</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    html {
+      background-color: #0b132b;
+    }
+
+    /* -----------------------------------------
+       DESIGN SYSTEM (ROYAL INDIGO & GOLD)
+       ----------------------------------------- */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #0d1b2a 100%);
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --gold-primary: #d4af37;      /* Shimmering Gold */
+      --gold-secondary: #aa8420;    /* Antique Gold */
+      --text-light: #1c2541;        /* Deep Indigo */
+      --text-muted: #5e6472;
+      --accent: #d4af37;
+      --border-color: rgba(212, 175, 55, 0.25);
+      
+      --font-cursive: 'Great Vibes', cursive;
+      --font-serif: 'Cinzel', serif;
+      --font-body: 'Playfair Display', serif;
+      --font-sans: 'Montserrat', sans-serif;
+      --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      background-size: cover;
+      color: #fff;
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body.locked {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* -----------------------------------------
+       1. ROYAL PALACE GATE COVER PAGE
+       ----------------------------------------- */
+    #intro-envelope {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #1c2541 0%, #080b15 100%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1500px;
+      transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1), visibility 1s;
+    }
+
+    #intro-envelope.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .gate-container {
+      position: relative;
+      width: 360px;
+      height: 600px;
+      background: transparent;
+      border-radius: 12px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+      overflow: visible;
+      perspective: 1500px;
+      transform-style: preserve-3d;
+    }
+
+    .gate-wing {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(135deg, #0d1b2a 0%, #152538 100%);
+      border: 3px solid var(--gold-primary);
+      z-index: 5;
+      transform-style: preserve-3d;
+      transition: transform 1.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 1.2s ease;
+      overflow: hidden;
+    }
+
+    .gate-left {
+      left: 0;
+      border-right: 1.5px solid var(--gold-primary);
+      border-radius: 12px 0 0 12px;
+      transform-origin: left center;
+    }
+
+    .gate-right {
+      right: 0;
+      border-left: 1.5px solid var(--gold-primary);
+      border-radius: 0 12px 12px 0;
+      transform-origin: right center;
+    }
+
+    /* Intricate Gold Gate Pattern */
+    .gate-pattern {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .gate-pattern::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      pointer-events: none;
+    }
+
+    .gate-svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--gold-primary);
+      stroke-width: 0.8;
+      fill: none;
+      opacity: 0.3;
+      padding: 20px;
+    }
+
+    .gate-container.open .gate-left {
+      transform: rotateY(-115deg);
+      opacity: 0;
+    }
+
+    .gate-container.open .gate-right {
+      transform: rotateY(115deg);
+      opacity: 0;
+    }
+
+    /* Medallion Coin */
+    .gate-coin-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 10;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .gate-coin {
+      width: 90px;
+      height: 90px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+      transition: transform 0.4s ease;
+    }
+
+    .gate-coin-wrapper:hover .gate-coin {
+      transform: scale(1.1) rotate(15deg);
+    }
+
+    .coin-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tap-to-reveal {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      color: var(--gold-primary);
+      margin-top: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+      text-transform: uppercase;
+      font-weight: 700;
+      animation: heartbeat 2.5s infinite ease-in-out;
+    }
+
+    .gate-container.open .gate-coin-wrapper {
+      transform: translate(-50%, -50%) scale(0) rotate(360deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* -----------------------------------------
+       2. ENVELOPE INNER CARD DETAILS (SLIDE OUT)
+       ----------------------------------------- */
+    .envelope-inner-card {
+      position: absolute;
+      top: 10%;
+      left: 5%;
+      width: 90%;
+      height: 80%;
+      background: #faf6f0;
+      border: 3px double var(--gold-primary);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+      z-index: 3;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+      transform: translateY(0) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gate-container.open .envelope-inner-card {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Inner card slide up exit after unlock */
+    .gate-container.open-complete .envelope-inner-card {
+      transform: translateY(-80px) scale(0.9);
+      opacity: 0;
+      transition: transform 1s ease-in, opacity 0.8s ease-in;
+    }
+
+    .inner-card-border {
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+      color: var(--text-light);
+    }
+
+    .inner-card-ganesh {
+      margin-bottom: 10px;
+    }
+
+    .inner-card-names {
+      font-family: var(--font-cursive);
+      font-size: 34px;
+      font-weight: 500;
+      color: var(--text-light);
+      margin: 8px 0;
+    }
+
+    .inner-card-desc {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 220px;
+      margin: 5px 0;
+    }
+
+    .inner-card-date {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--gold-secondary);
+      border-top: 1px solid var(--border-color);
+      padding-top: 8px;
+      margin-top: 8px;
+      width: 75%;
+    }
+
+    /* -----------------------------------------
+       3. FLOATING MUSIC WIDGET
+       ----------------------------------------- */
+    .floating-widget {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 100;
+    }
+
+    .widget-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--gold-primary);
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .widget-btn:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    .music-widget.playing {
+      animation: spin-vinyl 5s linear infinite;
+      background: var(--gold-secondary);
+      color: #faf6f0;
+      border-color: var(--gold-primary);
+    }
+
+    @keyframes spin-vinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* -----------------------------------------
+       4. MAIN INVITATION DETAILS PAGE
+       ----------------------------------------- */
+    #main-content {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.2s ease-in, visibility 1.2s;
+    }
+
+    #main-content.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding: 40px 30px;
+      background: var(--card-bg);
+      border: 3px double var(--gold-primary);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      color: var(--text-light);
+    }
+
+    .header-ganesh {
+      margin-bottom: 12px;
+    }
+
+    .header-shloka {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: var(--gold-secondary);
+      margin-bottom: 25px;
+    }
+
+    .hero-sub {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .hero-names {
+      font-family: var(--font-cursive);
+      font-size: clamp(36px, 8vw, 68px);
+      color: var(--text-light);
+      margin-bottom: 15px;
+      text-shadow: 0 1px 2px rgba(212, 175, 55, 0.15);
+      line-height: 1.2;
+    }
+
+    .ornament-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .ornament-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
+    }
+
+    .ornament-leaf {
+      color: var(--gold-primary);
+      font-size: 14px;
+    }
+
+    .hero-invite-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 25px;
+      padding: 0 10px;
+    }
+
+    .hero-date {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: var(--gold-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      display: inline-block;
+      padding: 10px 24px;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    /* Content Cards */
+    section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 40px 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+      border: 1px solid var(--border-color);
+      color: var(--text-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      letter-spacing: 2px;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 2px;
+      background: var(--gold-primary);
+      margin: 8px auto 0;
+    }
+
+    /* -----------------------------------------
+       5. INTERACTIVE SCRATCH CARD
+       ----------------------------------------- */
+    .scratch-cards-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 25px;
+      flex-wrap: nowrap;
+    }
+
+    .scratch-card-wrapper {
+      position: relative;
+      width: 110px;
+      height: 140px;
+      border-radius: 8px;
+      border: 2px solid var(--gold-primary);
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .scratch-reveal-val {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #faf6f0;
+      z-index: 1;
+    }
+
+    .scratch-val {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .scratch-lbl {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 5px;
+    }
+
+    .scratch-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      cursor: crosshair;
+      touch-action: none;
+      transition: opacity 0.6s ease;
+    }
+
+    .scratch-hint-text {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 15px;
+      font-style: italic;
+    }
+
+    /* -----------------------------------------
+       6. love story photo gallery stack
+       ----------------------------------------- */
+    .polaroid-deck-container {
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .polaroid-card {
+      position: absolute;
+      width: 250px;
+      background: #fff;
+      padding: 12px 12px 24px;
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border-radius: 4px;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), z-index 0s;
+      cursor: pointer;
+      user-select: none;
+      transform-origin: center center;
+    }
+
+    .polaroid-photo-frame {
+      width: 100%;
+      height: 220px;
+      background: #eee;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .polaroid-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .polaroid-caption {
+      font-family: var(--font-cursive);
+      font-size: 24px;
+      color: #333;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Initial stacking layout */
+    .polaroid-card:nth-child(1) { transform: rotate(-5deg) translate(-5px, -5px); z-index: 4; }
+    .polaroid-card:nth-child(2) { transform: rotate(3deg) translate(5px, 0); z-index: 3; }
+    .polaroid-card:nth-child(3) { transform: rotate(-2deg) translate(0, 5px); z-index: 2; }
+    .polaroid-card:nth-child(4) { transform: rotate(6deg) translate(8px, 10px); z-index: 1; }
+
+    /* Hover card fan out physical effect */
+    .polaroid-deck-container:hover .polaroid-card:nth-child(1) { transform: rotate(-10deg) translate(-25px, -10px); }
+    .polaroid-deck-container:hover .polaroid-card:nth-child(2) { transform: rotate(-2deg) translate(-5px, -5px); }
+    .polaroid-deck-container:hover .polaroid-card:nth-child(3) { transform: rotate(5deg) translate(15px, 5px); }
+    .polaroid-deck-container:hover .polaroid-card:nth-child(4) { transform: rotate(12deg) translate(35px, 15px); }
+
+    /* Animation classes for click cycle cards */
+    .polaroid-card.slide-out {
+      transform: rotate(25deg) translate(150%, -30px) !important;
+      opacity: 0;
+      z-index: 10;
+    }
+
+    /* -----------------------------------------
+       7. ITINERARY TIMELINE
+       ----------------------------------------- */
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: var(--border-color);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .timeline-badge {
+      position: absolute;
+      left: -20px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2.5px solid var(--gold-primary);
+    }
+
+    .timeline-card {
+      background: #faf6f0;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .timeline-time {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--gold-secondary);
+      font-weight: 700;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .timeline-card h4 {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+
+    .timeline-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* -----------------------------------------
+       8. VENUE & LIGHTBOX MAP
+       ----------------------------------------- */
+    .venue-card-img {
+      width: 100%;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .venue-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .venue-name {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 5px;
+    }
+
+    .venue-address {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .map-frame-wrapper {
+      width: 100%;
+      height: 250px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .map-btn-row {
+      display: flex;
+      gap: 15px;
+    }
+
+    .action-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-gold {
+      background: var(--gold-secondary);
+      border: 1px solid var(--gold-primary);
+      color: #fff;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-primary);
+      box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-secondary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    /* -----------------------------------------
+       9. RSVP & WISHES GUESTBOOK
+       ----------------------------------------- */
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .form-control {
+      background: #faf6f0;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px;
+      color: var(--text-light);
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      transition: var(--transition-smooth);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 8px rgba(212,175,55,0.15);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 5px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .radio-label input {
+      accent-color: var(--gold-primary);
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      border-radius: 6px;
+      border: 2px solid var(--gold-primary);
+      background: transparent;
+      color: var(--gold-secondary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(212,175,55,0.1);
+      transition: var(--transition-smooth);
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background: var(--gold-secondary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(212,175,55,0.25);
+    }
+
+    .wishes-display {
+      margin-top: 30px;
+      border-top: 1px dashed var(--border-color);
+      padding-top: 25px;
+    }
+
+    .wishes-title {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      letter-spacing: 2px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .wishes-wall {
+      max-height: 350px;
+      overflow-y: auto;
+      padding-right: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .wishes-wall::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .wishes-wall::-webkit-scrollbar-thumb {
+      background: var(--gold-primary);
+      border-radius: 2px;
+    }
+
+    .wish-card {
+      background: #faf6f0;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .wish-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      font-family: var(--font-serif);
+      font-size: 12.5px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .wish-status {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--gold-secondary);
+      border: 0.5px solid var(--gold-primary);
+    }
+
+    .wish-status.no {
+      background: rgba(185, 28, 28, 0.08);
+      color: #b91c1c;
+      border-color: #b91c1c;
+    }
+
+    .wish-body {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* KEYFRAMES */
+    @keyframes heartbeat {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.06); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 60px 20px 40px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+
+    .footer-title {
+      font-family: var(--font-cursive);
+      font-size: 38px;
+      color: var(--gold-secondary);
+    }
+
+    .footer-hashtag {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 480px) {
+      .gate-container {
+        width: 320px;
+        height: 520px;
+      }
+      .gate-wing {
+        border-width: 2px;
+      }
+      .gate-coin {
+        width: 80px;
+        height: 80px;
+      }
+      .envelope-tap-reveal-text {
+        font-size: 24px;
+        top: 36% !important;
+      }
+      .scratch-card-wrapper {
+        width: 90px !important;
+        height: 120px !important;
+      }
+      .scratch-cards-row {
+        gap: 6px !important;
+        flex-wrap: nowrap !important;
+      }
+      .scratch-val {
+        font-size: 14px !important;
+      }
+      .scratch-lbl {
+        font-size: 8px !important;
+        letter-spacing: 0.5px !important;
+      }
+      .section-title {
+        font-size: 20px !important;
+      }
+      header {
+        margin-bottom: 30px;
+        padding: 35px 15px;
+      }
+      #main-content {
+        padding: 40px 10px 80px;
+      }
+      section {
+        padding: 25px 15px;
+        margin-bottom: 30px;
+      }
+      .timeline-time {
+        font-size: 11px !important;
+      }
+      .timeline-title {
+        font-size: 13px !important;
+      }
+      .form-control, .rsvp-btn {
+        font-size: 12.5px !important;
+      }
+    }
+  </style>
+</head>
+<body class="locked">
+
+  <!-- Background Canvas for Floating Gold Sparkles -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- 1. ROYAL PALACE GATE COVER -->
+  <div id="intro-envelope">
+    <div class="gate-container" id="envelope">
+      
+      <!-- Left Gate Wing -->
+      <div class="gate-wing gate-left" id="gateLeft">
+        <div class="gate-pattern">
+          <svg class="gate-svg" viewBox="0 0 100 200">
+            <!-- Mandala pattern loops -->
+            <path d="M 50,0 C 20,40 10,120 50,200" />
+            <path d="M 0,100 C 25,75 75,75 100,100" />
+            <circle cx="50" cy="100" r="30" />
+            <circle cx="50" cy="100" r="15" />
+            <line x1="50" y1="70" x2="50" y2="130" />
+            <line x1="20" y1="100" x2="80" y2="100" />
+            <path d="M 0,20 L 50,50 L 0,80" />
+            <path d="M 0,120 L 50,150 L 0,180" />
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Right Gate Wing -->
+      <div class="gate-wing gate-right" id="gateRight">
+        <div class="gate-pattern">
+          <svg class="gate-svg" viewBox="0 0 100 200" style="transform: scaleX(-1);">
+            <!-- Mirrored Mandala loops -->
+            <path d="M 50,0 C 20,40 10,120 50,200" />
+            <path d="M 0,100 C 25,75 75,75 100,100" />
+            <circle cx="50" cy="100" r="30" />
+            <circle cx="50" cy="100" r="15" />
+            <line x1="50" y1="70" x2="50" y2="130" />
+            <line x1="20" y1="100" x2="80" y2="100" />
+            <path d="M 0,20 L 50,50 L 0,80" />
+            <path d="M 0,120 L 50,150 L 0,180" />
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Central Monogram Medallion Coin -->
+      <div class="gate-coin-wrapper" id="coinBtn" onclick="openGate()">
+        <div class="gate-coin">
+          <svg class="coin-svg" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffe89c" />
+                <stop offset="50%" stop-color="#d4af37" />
+                <stop offset="100%" stop-color="#9a7615" />
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="45" fill="url(#goldGrad)" stroke="#aa8420" stroke-width="2" />
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="0.8" stroke-dasharray="2" />
+            <!-- Ganesha Simple Silhouette on Coin -->
+            <path d="M50,22 Q43,26 43,36 Q43,48 50,54 M50,22 Q57,26 57,36 Q57,48 50,54" fill="none" stroke="#6d5314" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M50,54 Q50,68 40,68 Q36,68 36,64 M50,54 Q50,75 58,75 Q63,75 63,70" fill="none" stroke="#6d5314" stroke-width="1.8" stroke-linecap="round" />
+            <circle cx="50" cy="30" r="1.5" fill="#6d5314" />
+          </svg>
+        </div>
+        <div class="tap-to-reveal">TAP COIN TO ENTER</div>
+      </div>
+
+      <!-- Slide up invitation card hidden inside gates -->
+      <div class="envelope-inner-card" id="innerCard">
+        <div class="inner-card-border">
+          <div class="inner-card-ganesh">
+            <svg viewBox="0 0 100 100" style="width: 44px; height: 44px; fill: none; stroke: var(--gold-primary); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
+              <path d="M45,25 L50,12 L55,25 Z M47,21 L53,21 M48,17 L52,17" />
+              <path d="M40,32 C35,32 32,36 34,42 C36,48 40,48 40,48" />
+              <path d="M60,32 C65,32 68,36 66,42 C64,48 60,48 60,48" />
+              <path d="M50,25 C50,25 43,30 43,45 C43,58 50,70 50,85 C50,70 57,58 57,45 C57,30 50,25 50,25 Z" />
+              <path d="M50,85 C42,85 36,88 36,92 M50,85 C58,85 64,88 64,92" />
+            </svg>
+          </div>
+          <div style="font-family: var(--font-serif); font-size: 11px; letter-spacing: 2px; color: var(--gold-secondary);">॥ श्री गणेशाय नमः ॥</div>
+          <div class="inner-card-names" id="innerCardNames">Meenal & Avinash</div>
+          <div class="inner-card-desc">Are cordially joining hands. Join us in Udaipur to celebrate their holy union.</div>
+          <div class="inner-card-date" id="innerCardDate">DECEMBER 18, 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. FLOATING MUSIC WIDGET -->
+  <div class="floating-widget">
+    <div class="widget-btn music-widget" id="musicBtn" onclick="toggleMusic()" title="Play Music">
+      <i class="fa-solid fa-music"></i>
+    </div>
+  </div>
+
+  <!-- 3. MAIN INVITATION DETAILS CONTENT -->
+  <div id="main-content">
+    
+    <header>
+      <div class="header-ganesh">
+        <svg viewBox="0 0 100 100" style="width: 55px; height: 55px; fill: none; stroke: var(--gold-primary); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
+          <path d="M45,25 L50,12 L55,25 Z M47,21 L53,21 M48,17 L52,17" />
+          <path d="M40,32 C35,32 32,36 34,42 C36,48 40,48 40,48" />
+          <path d="M60,32 C65,32 68,36 66,42 C64,48 60,48 60,48" />
+          <path d="M50,25 C50,25 43,30 43,45 C43,58 50,70 50,85 C50,70 57,58 57,45 C57,30 50,25 50,25 Z" />
+          <path d="M50,85 C42,85 36,88 36,92 M50,85 C58,85 64,88 64,92" />
+        </svg>
+      </div>
+      <div class="header-shloka">॥ श्री वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ॥<br>॥ निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</div>
+      <div class="hero-sub">The Wedding Invitation</div>
+      <h1 class="hero-names" id="heroTitle">Meenal & Avinash</h1>
+      
+      <div class="ornament-divider">
+        <div class="ornament-line"></div>
+        <i class="fa-solid fa-seedling ornament-leaf"></i>
+        <div class="ornament-line"></div>
+      </div>
+      
+      <p class="hero-invite-text">
+        With the blessings of Lord Ganesha and our beloved families, we invite you to honor us with your presence as we pledge our vows and embark on a lifetime of love and togetherness.
+      </p>
+      <div class="hero-date" id="heroDate">Friday, December 18, 2026</div>
+    </header>
+
+    <!-- SECTION: SCRATCH CARD -->
+    <section>
+      <h2 class="section-title">Scratch For Date</h2>
+      <p style="text-align: center; font-size:13.5px; color:var(--text-muted); margin-bottom: 20px;">Use your touch pointer to wipe the cards and reveal the wedding date!</p>
+      
+      <div class="scratch-cards-row">
+        <!-- Month Card -->
+        <div class="scratch-card-wrapper">
+          <div class="scratch-reveal-val">
+            <span class="scratch-val" id="scratchValMonth">DEC</span>
+            <span class="scratch-lbl">Month</span>
+          </div>
+          <canvas class="scratch-canvas" id="canvasMonth"></canvas>
+        </div>
+        
+        <!-- Day Card -->
+        <div class="scratch-card-wrapper">
+          <div class="scratch-reveal-val">
+            <span class="scratch-val" id="scratchValDay">18</span>
+            <span class="scratch-lbl">Day</span>
+          </div>
+          <canvas class="scratch-canvas" id="canvasDay"></canvas>
+        </div>
+        
+        <!-- Year Card -->
+        <div class="scratch-card-wrapper">
+          <div class="scratch-reveal-val">
+            <span class="scratch-val" id="scratchValYear">2026</span>
+            <span class="scratch-lbl">Year</span>
+          </div>
+          <canvas class="scratch-canvas" id="canvasYear"></canvas>
+        </div>
+      </div>
+      <p class="scratch-hint-text" id="scratchHint">Attending? Scratch to reveal and save the date!</p>
+    </section>
+
+    <!-- SECTION: PHOTO GALLERY -->
+    <section>
+      <h2 class="section-title">Our Moments</h2>
+      <p style="text-align:center; font-size:13.5px; color:var(--text-muted); margin-bottom:20px;">Click on the top card to cycle through our sweet memories.</p>
+      
+      <div class="polaroid-deck-container" id="polaroidDeck">
+        <!-- Polaroid Card 1 -->
+        <div class="polaroid-card">
+          <div class="polaroid-photo-frame">
+            <img src="couple1.png" alt="Couple Portrait 1">
+          </div>
+          <div class="polaroid-caption">First Sight</div>
+        </div>
+        <!-- Polaroid Card 2 -->
+        <div class="polaroid-card">
+          <div class="polaroid-photo-frame">
+            <img src="couple2.png" alt="Couple Portrait 2">
+          </div>
+          <div class="polaroid-caption">Hand in Hand</div>
+        </div>
+        <!-- Polaroid Card 3 -->
+        <div class="polaroid-card">
+          <div class="polaroid-photo-frame">
+            <img src="couple3.png" alt="Couple Portrait 3">
+          </div>
+          <div class="polaroid-caption">The Proposal</div>
+        </div>
+        <!-- Polaroid Card 4 -->
+        <div class="polaroid-card">
+          <div class="polaroid-photo-frame">
+            <img src="couple4.png" alt="Couple Portrait 4">
+          </div>
+          <div class="polaroid-caption">Sweet Beginnings</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: TIMELINE -->
+    <section>
+      <h2 class="section-title">The Celebration</h2>
+      <div class="timeline">
+        <!-- Item 1 -->
+        <div class="timeline-item">
+          <div class="timeline-badge"></div>
+          <div class="timeline-card">
+            <span class="timeline-time">10:00 AM | Dec 17, 2026</span>
+            <h4>Haldi Ceremony</h4>
+            <p>A beautiful morning filled with turmeric, laughter, folk beats, and blessings.</p>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="timeline-item">
+          <div class="timeline-badge"></div>
+          <div class="timeline-card">
+            <span class="timeline-time">07:00 PM | Dec 17, 2026</span>
+            <h4>Sangeet & Ring Ceremony</h4>
+            <p>An evening of dances, family dramas, dynamic rhythms, and engagement rings.</p>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="timeline-item">
+          <div class="timeline-badge"></div>
+          <div class="timeline-card">
+            <span class="timeline-time">04:00 PM | Dec 18, 2026</span>
+            <h4>Varmala & Wedding Vows</h4>
+            <p>The main wedding rituals (Saat Phere) followed by dynastic feast dinner.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: VENUE MAP -->
+    <section>
+      <h2 class="section-title">The Venue</h2>
+      <div class="venue-card-img">
+        <img src="venue_hall.png" alt="Wedding Venue Palace Hall">
+      </div>
+      <h4 class="venue-name" id="venueName">The Royal Palace, Udaipur</h4>
+      <p class="venue-address" id="venueAddress">Lake Pichola Waterfront, Udaipur, Rajasthan 313001</p>
+      
+      <div class="map-frame-wrapper">
+        <iframe id="mapFrame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.2711681283626!2d73.68261317596001!3d24.579848556447234!2m3!1f0!2f0!3f0!3m2!1i1024!2i769!4f13.1!3m3!1m2!1s0x3967e564506c172d%3A0xa6212e3e6022879!2sCity%20Palace!5e0!3m2!1sen!2sin!4v1719230000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      
+      <div class="map-btn-row">
+        <a id="navLink" href="https://maps.app.goo.gl/UdS38" target="_blank" class="action-btn btn-gold"><i class="fa-solid fa-location-arrow"></i> Navigate</a>
+        <button onclick="shareVenue()" class="action-btn btn-outline"><i class="fa-solid fa-share-nodes"></i> Share Location</button>
+      </div>
+    </section>
+
+    <!-- SECTION: RSVP & WISHES -->
+    <section>
+      <h2 class="section-title">Blessings Wall</h2>
+      
+      <form class="rsvp-form" id="rsvpForm" onsubmit="submitRSVP(event)">
+        <div class="form-group">
+          <label for="rsvpName">Your Name</label>
+          <input type="text" class="form-control" id="rsvpName" placeholder="Enter your name" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Will you attend?</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="rsvpAttending" value="Yes" checked> Yes, with joy!
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="rsvpAttending" value="No"> Regretfully, No
+            </label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="rsvpMessage">Blessings / Wishes Message</label>
+          <textarea class="form-control" id="rsvpMessage" rows="3" placeholder="Leave a sweet blessing message for the couple..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn-submit">Post Blessing & RSVP</button>
+      </form>
+      
+      <div class="wishes-display">
+        <h4 class="wishes-title">Wishes Wall</h4>
+        <div class="wishes-wall" id="wishesList">
+          <!-- Wishes will be loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-title" id="footerTitle">Meenal & Avinash</div>
+      <div class="footer-hashtag" id="footerHashtag">#MeenalAvinashVows</div>
+      <div style="font-family: var(--font-sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 15px;">Designed by Artful Creations</div>
+    </footer>
+
+  </div>
+
+  <!-- AUDIO PLAYER ELEMENT -->
+  <audio id="bgMusic" loop>
+    <source src="https://archive.org/download/dni.ncaa.SPK-35-SP/SPK-35-SP_SIDE_A.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* -----------------------------------------
+       A. DATA CONFIGURATION & INITIALIZER
+       ----------------------------------------- */
+    const weddingConfig = {
+      groom: "Avinash",
+      bride: "Meenal",
+      date: "2026-12-18",
+      venueName: "Rajalakshmi Kalyana Mandapam",
+      venueAddress: "100 Feet Road, Banashankari, Bengaluru, Karnataka 560085",
+      mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.7513568853755!2d77.53488737596001!3d12.92369651559868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3e5661b0dd6b%3A0x4a9d7bb3d15b026!2sRajalakshmi%20Kalyana%20Mantapa!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+      bgMusicUrl: "https://archive.org/download/dni.ncaa.SPK-35-SP/SPK-35-SP_SIDE_A.mp3"
+    };
+
+    const defaultWishes = [
+      { name: "Suresh Sharma", status: "Yes", text: "Heartiest congratulations Meenal and Avinash! Wishing you both a lifetime of happiness, laughter, and strong bonding." },
+      { name: "Priya Patel", status: "Yes", text: "So excited to attend! Beautiful invitation card and opening gate sequence, can't wait to see you both on stage!" },
+      { name: "Rahul Verma", status: "No", text: "Heartiest congratulations! Wish I could be there in person, sending lots of love!" }
+    ];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Force scroll reset to top
+      window.scrollTo(0, 0);
+
+      // 1. Populate custom config values
+      applyWeddingConfig();
+
+      // 2. Initialize Wishes Guestbook
+      loadWishes();
+
+      // 3. Initialize background golden sparkles canvas
+      initGoldSparkles();
+
+      // 4. Initialize date scratch cards
+      initScratchCards();
+
+      // 5. Initialize Polaroid deck cycling
+      initPolaroidDeck();
+    });
+
+    function applyWeddingConfig() {
+      const groom = weddingConfig.groom;
+      const bride = weddingConfig.bride;
+      const dateStr = weddingConfig.date;
+      
+      const couplesNames = `${bride} & ${groom}`;
+      
+      // Update HTML titles
+      document.getElementById('innerCardNames').innerText = couplesNames;
+      document.getElementById('heroTitle').innerText = couplesNames;
+      document.getElementById('footerTitle').innerText = couplesNames;
+      document.getElementById('footerHashtag').innerText = `#${bride}${groom}Wedding`;
+
+      // Update date fields
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateObj = new Date(dateStr);
+      const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions);
+      document.getElementById('heroDate').innerText = formattedDate;
+      document.getElementById('innerCardDate').innerText = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
+
+      // Update venue configs
+      document.getElementById('venueName').innerText = weddingConfig.venueName;
+      document.getElementById('venueAddress').innerText = weddingConfig.venueAddress;
+      document.getElementById('mapFrame').src = weddingConfig.mapEmbedUrl;
+      document.getElementById('navLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(weddingConfig.venueName + " " + weddingConfig.venueAddress)}`;
+      
+      // Set audio files
+      const audio = document.getElementById('bgMusic');
+      audio.querySelector('source').src = weddingConfig.bgMusicUrl;
+      audio.load();
+    }
+
+    /* -----------------------------------------
+       B. INTERACTIVE 3D PALACE GATE OPENING LOGIC
+       ----------------------------------------- */
+    function openGate() {
+      const envelope = document.getElementById('envelope');
+      const intro = document.getElementById('intro-envelope');
+      const main = document.getElementById('main-content');
+      
+      // 1. Play arpeggio chime and start shehnai BGM
+      playChimeAudio();
+      
+      // 2. Add open animation class (swings gates left/right)
+      envelope.classList.add('open');
+      
+      // 3. Slide up inner card exit sequence
+      setTimeout(() => {
+        envelope.classList.add('open-complete');
+        // Confetti burst
+        confetti({
+          particleCount: 160,
+          spread: 80,
+          origin: { y: 0.65 },
+          colors: ['#ffe89c', '#d4af37', '#9a7615', '#ffffff']
+        });
+      }, 1300);
+
+      // 4. Fade cover page out and reveal details page
+      setTimeout(() => {
+        intro.classList.add('fade-out');
+        document.body.classList.remove('locked');
+        main.classList.add('visible');
+      }, 2100);
+    }
+
+    // Play a lovely arpeggio chime sound using Web Audio API on complete unlock
+    function playChimeAudio() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        
+        const playNote = (freq, delay, dur) => {
+          const osc = ctx.createOscillator();
+          const gainNode = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + delay);
+          gainNode.gain.setValueAtTime(0.2, now + delay);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, now + delay + dur);
+          osc.connect(gainNode);
+          gainNode.connect(ctx.destination);
+          osc.start(now + delay);
+          osc.stop(now + delay + dur);
+        };
+        
+        // C-Major arpeggio chime chord
+        playNote(523.25, 0, 0.8);     // C5
+        playNote(659.25, 0.1, 0.8);   // E5
+        playNote(783.99, 0.2, 0.8);   // G5
+        playNote(1046.50, 0.3, 1.2);  // C6
+      } catch (e) {
+        console.log("Audio chime blocked", e);
+      }
+      
+      // Play loop BGM
+      const music = document.getElementById('bgMusic');
+      music.volume = 0.55;
+      music.play().then(() => {
+        document.getElementById('musicBtn').classList.add('playing');
+        document.getElementById('musicBtn').title = "Pause Music";
+      }).catch(err => {
+        console.log("BGM playback blocked", err);
+      });
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById('bgMusic');
+      const btn = document.getElementById('musicBtn');
+      if (music.paused) {
+        music.play();
+        btn.classList.add('playing');
+        btn.title = "Pause Music";
+      } else {
+        music.pause();
+        btn.classList.remove('playing');
+        btn.title = "Play Music";
+      }
+    }
+
+    /* -----------------------------------------
+       C. FLOATING GOLD SPARKLES CANVAS LOGIC
+       ----------------------------------------- */
+    function initGoldSparkles() {
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+      
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      let particles = [];
+      const particleCount = 45;
+
+      class GoldSparkle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height + height;
+          this.size = Math.random() * 2.5 + 0.8;
+          this.speedY = -(Math.random() * 1.2 + 0.4);
+          this.speedX = Math.random() * 0.8 - 0.4;
+          this.alpha = Math.random() * 0.7 + 0.2;
+          this.color = `rgba(${212 + Math.floor(Math.random()*43)}, ${175 + Math.floor(Math.random()*40)}, 55, ${this.alpha})`;
+        }
+        update() {
+          this.y += this.speedY;
+          this.x += this.speedX;
+          if (this.y < -10) {
+            this.reset();
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new GoldSparkle());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    /* -----------------------------------------
+       D. 3-CARD INLINE SCRATCH CARD LOGIC
+       ----------------------------------------- */
+    function initScratchCards() {
+      const cards = [
+        { id: 'canvasMonth', revealed: false },
+        { id: 'canvasDay', revealed: false },
+        { id: 'canvasYear', revealed: false }
+      ];
+
+      cards.forEach(c => {
+        const canvas = document.getElementById(c.id);
+        if(!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width || 95;
+        canvas.height = rect.height || 125;
+
+        // Draw gold metallic scratch mask
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        grad.addColorStop(0, '#ffd700');
+        grad.addColorStop(0.5, '#d4af37');
+        grad.addColorStop(1, '#b8860b');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw decorative lines
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+        ctx.lineWidth = 1;
+        const step = 20;
+        for(let i=0; i<canvas.width; i+=step) {
+          ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+        }
+
+        // Draw scratch cues
+        ctx.fillStyle = '#5c1d24';
+        ctx.font = 'bold 9px Montserrat, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('SCRATCH', canvas.width / 2, canvas.height / 2);
+
+        let isDrawing = false;
+
+        const getPos = (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+          return { x: clientX - rect.left, y: clientY - rect.top };
+        };
+
+        const scratch = (x, y) => {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.arc(x, y, 15, 0, Math.PI * 2);
+          ctx.fill();
+        };
+
+        const checkScratchPercent = () => {
+          if(c.revealed) return;
+          try {
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let count = 0;
+            for(let i = 3; i < imgData.data.length; i += 4) {
+              if(imgData.data[i] === 0) count++;
+            }
+            const percent = count / (canvas.width * canvas.height);
+            if(percent > 0.45) {
+              c.revealed = true;
+              canvas.style.transition = 'opacity 0.6s ease';
+              canvas.style.opacity = '0';
+              setTimeout(() => { canvas.style.display = 'none'; }, 600);
+              
+              // Double confetti sparkles blast on complete reveal
+              confetti({
+                particleCount: 120,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#ffe89c', '#d4af37', '#ffffff']
+              });
+              confetti({
+                particleCount: 120,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#ffe89c', '#d4af37', '#ffffff']
+              });
+            }
+          } catch(e) {
+            console.log(e);
+          }
+        };
+
+        const startScratch = (e) => {
+          isDrawing = true;
+          const pos = getPos(e);
+          scratch(pos.x, pos.y);
+        };
+
+        const scratchMove = (e) => {
+          if(!isDrawing) return;
+          e.preventDefault();
+          const pos = getPos(e);
+          scratch(pos.x, pos.y);
+        };
+
+        const stopScratch = () => {
+          isDrawing = false;
+          checkScratchPercent();
+        };
+
+        canvas.addEventListener('mousedown', startScratch);
+        canvas.addEventListener('mousemove', scratchMove);
+        canvas.addEventListener('mouseup', stopScratch);
+        canvas.addEventListener('mouseleave', stopScratch);
+        canvas.addEventListener('touchstart', startScratch);
+        canvas.addEventListener('touchmove', scratchMove);
+        canvas.addEventListener('touchend', stopScratch);
+      });
+    }
+
+    /* -----------------------------------------
+       E. INTERACTIVE POLAROID GALLERY STACK
+       ----------------------------------------- */
+    function initPolaroidDeck() {
+      const deck = document.getElementById('polaroidDeck');
+      const cards = deck.querySelectorAll('.polaroid-card');
+      
+      let isTransitioning = false;
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          if (isTransitioning) return;
+          isTransitioning = true;
+          
+          card.classList.add('slide-out');
+          
+          setTimeout(() => {
+            // Find active stack heights
+            let lowestZIndex = 999;
+            cards.forEach(c => {
+              const z = parseInt(window.getComputedStyle(c).zIndex) || 0;
+              if (z < lowestZIndex) lowestZIndex = z;
+            });
+            
+            // Push card to the bottom
+            card.style.zIndex = lowestZIndex - 1;
+            card.classList.remove('slide-out');
+            
+            // Increment the z-index of other cards
+            cards.forEach(c => {
+              if (c !== card) {
+                const z = parseInt(c.style.zIndex || window.getComputedStyle(c).zIndex) || 0;
+                c.style.zIndex = z + 1;
+              }
+            });
+            
+            isTransitioning = false;
+          }, 600);
+        });
+      });
+    }
+
+    /* -----------------------------------------
+       F. RSVP GUESTBOOK MANAGEMENT
+       ----------------------------------------- */
+    function loadWishes() {
+      let stored = localStorage.getItem('wedding_wishes_indigo');
+      let wishes = stored ? JSON.parse(stored) : defaultWishes;
+      
+      const list = document.getElementById('wishesList');
+      list.innerHTML = '';
+      
+      wishes.forEach(w => {
+        const card = document.createElement('div');
+        card.className = 'wish-card';
+        const attendingClass = w.status === 'No' ? 'wish-status no' : 'wish-status';
+        
+        card.innerHTML = `
+          <div class="wish-header">
+            <span>${escapeHTML(w.name)}</span>
+            <span class="${attendingClass}">${w.status === 'No' ? 'Attending: No' : 'Attending: Yes'}</span>
+          </div>
+          <div class="wish-body">${escapeHTML(w.text)}</div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function submitRSVP(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('rsvpName').value.trim();
+      const status = document.querySelector('input[name="rsvpAttending"]:checked').value;
+      const text = document.getElementById('rsvpMessage').value.trim();
+      
+      if (!name || !text) return;
+
+      let stored = localStorage.getItem('wedding_wishes_indigo');
+      let wishes = stored ? JSON.parse(stored) : defaultWishes;
+      
+      // Prepend new wishes
+      wishes.unshift({ name, status, text });
+      localStorage.setItem('wedding_wishes_indigo', JSON.stringify(wishes));
+      
+      // Reload UI
+      loadWishes();
+      
+      // Reset Form fields
+      document.getElementById('rsvpName').value = '';
+      document.getElementById('rsvpMessage').value = '';
+      
+      // Success Confetti
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.8 }
+      });
+    }
+
+    function shareVenue() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Wedding Venue Location',
+          text: `Join us for the wedding of Meenal & Avinash at ${weddingConfig.venueName}!`,
+          url: window.location.href
+        }).catch(err => console.log(err));
+      } else {
+        navigator.clipboard.writeText(weddingConfig.venueAddress).then(() => {
+          alert('Venue address copied to clipboard!');
+        });
+      }
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>

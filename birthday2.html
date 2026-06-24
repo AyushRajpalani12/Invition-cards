@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Code Protection -->
+  <script src="protection.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birthday Invitation | Myra's 21st Celebration</title>
@@ -17,19 +19,23 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
+    html {
+      background-color: #FFE3D1;
+    }
+
     /* -----------------------------------------
-       DESIGN SYSTEM (ROSE GOLD LUXURY)
+       DESIGN SYSTEM (SOOTHING PEACH PASTEL)
        ----------------------------------------- */
     :root {
-      --bg-gradient: linear-gradient(135deg, #fffcf9 0%, #faefe3 50%, #f0dec5 100%);
-      --card-bg: rgba(255, 255, 255, 0.82);
-      --gold-primary: #c39c63;
-      --gold-secondary: #8c5d3a;
-      --gold-glowing: 0 0 15px rgba(195, 156, 99, 0.35);
-      --text-light: #442a1a;
-      --text-muted: #7d6555;
-      --accent: #8c5d3a;
-      --border-color: rgba(195, 156, 99, 0.28);
+      --bg-gradient: linear-gradient(135deg, #FAF8F5 0%, #FFF0E5 50%, #FFE3D1 100%);
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --gold-primary: #C87A53;       /* Terracotta Peach */
+      --gold-secondary: #5A453A;     /* Deep Warm Brown */
+      --gold-glowing: 0 2px 10px rgba(200, 122, 83, 0.08);
+      --text-light: #42322A;         /* Deep Cocoa Brown */
+      --text-muted: #7D695E;         /* Soft Warm Taupe */
+      --accent: #5A453A;
+      --border-color: rgba(200, 122, 83, 0.18);
       
       --font-cursive: 'Great Vibes', cursive;
       --font-serif: 'Cinzel', serif;
@@ -46,6 +52,8 @@
 
     body {
       background: var(--bg-gradient);
+      background-attachment: fixed;
+      background-size: cover;
       color: var(--text-light);
       font-family: var(--font-body);
       overflow-x: hidden;
@@ -77,7 +85,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, #2d1810 0%, #150905 100%);
+      background: radial-gradient(circle, #FAF8F5 0%, #FFE3D1 100%);
       z-index: 9999;
       display: flex;
       justify-content: center;
@@ -96,9 +104,9 @@
       position: relative;
       width: 360px;
       height: 600px;
-      background: #543122; /* Rich copper/rose base cardstock */
+      background: #FFF0E5; /* Soothing peach cardstock */
       border-radius: 12px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.35), 0 0 35px rgba(195, 156, 99, 0.15);
+      box-shadow: 0 15px 40px rgba(90, 69, 58, 0.15);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -121,10 +129,10 @@
       left: 0;
       width: 100%;
       height: 300px;
-      background: linear-gradient(135deg, #44261a 0%, #543122 100%);
+      background: linear-gradient(135deg, #FFF0E5 0%, #FFE3D1 100%);
       border-top: 2px solid var(--gold-primary);
       z-index: 5;
-      box-shadow: inset 0 15px 30px rgba(0,0,0,0.15);
+      box-shadow: inset 0 15px 30px rgba(90, 69, 58, 0.05);
       transition: all 0.8s ease;
     }
 
@@ -135,7 +143,7 @@
       left: 0;
       width: 100%;
       height: 1px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.4);
     }
 
     /* Envelope Top Flap */
@@ -145,13 +153,13 @@
       left: 0;
       width: 100%;
       height: 300px;
-      background: linear-gradient(135deg, #44261a 0%, #543122 100%);
-      border-bottom: 1.5px solid rgba(195, 156, 99, 0.35);
+      background: linear-gradient(135deg, #FFF0E5 0%, #FFE3D1 100%);
+      border-bottom: 1.5px solid rgba(200, 122, 83, 0.25);
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       z-index: 6;
       transform-origin: top center;
       transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 10px rgba(90, 69, 58, 0.08);
     }
 
     /* Cursive gold clue text */
@@ -161,13 +169,13 @@
       left: 50%;
       transform: translateX(-50%);
       font-family: var(--font-cursive);
-      color: #faefe3;
+      color: var(--gold-primary);
       font-size: 32px;
       text-align: center;
       z-index: 7;
       cursor: pointer;
       pointer-events: auto;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
       animation: heartbeat 2.5s infinite ease-in-out;
       width: 100%;
     }
@@ -962,6 +970,80 @@
       color: var(--text-muted);
       margin-top: 8px;
     }
+
+    /* -----------------------------------------
+       RESPONSIVE & MOBILE POLISH
+       ----------------------------------------- */
+    @media (max-width: 480px) {
+      .envelope-wrapper {
+        width: 320px;
+        height: 520px;
+        padding: 25px 15px 30px;
+      }
+      .envelope-flap-top {
+        height: 260px;
+      }
+      .envelope-pocket-bottom {
+        height: 260px;
+      }
+      .wax-seal-container {
+        width: 95px;
+        height: 95px;
+        top: 50% !important;
+      }
+      .envelope-tap-reveal-text {
+        font-size: 24px;
+        top: 36% !important;
+      }
+      .scratch-card-wrapper {
+        width: 90px !important;
+        height: 120px !important;
+      }
+      .scratch-cards-row {
+        gap: 6px !important;
+        flex-wrap: nowrap !important;
+      }
+      .scratch-val {
+        font-size: 14px !important;
+      }
+      .scratch-lbl {
+        font-size: 8px !important;
+        letter-spacing: 0.5px !important;
+      }
+      .celebration-name {
+        font-size: clamp(34px, 8vw, 48px) !important;
+      }
+      .celebration-sub {
+        font-size: 9px !important;
+        letter-spacing: 3px !important;
+      }
+      .section-title {
+        font-size: 22px !important;
+      }
+      header {
+        margin-bottom: 30px;
+        padding: 30px 15px;
+      }
+      #main-content {
+        padding: 40px 10px 80px;
+      }
+      section {
+        padding: 25px 15px;
+        margin-bottom: 30px;
+      }
+      .timeline-time {
+        font-size: 11px !important;
+      }
+      .timeline-title {
+        font-size: 13px !important;
+      }
+      .form-control, .rsvp-btn {
+        font-size: 12.5px !important;
+      }
+      .map-card iframe {
+        height: 250px !important;
+      }
+    }
   </style>
 </head>
 <body class="locked">
@@ -1210,7 +1292,7 @@
 
   <!-- AUDIO ELEMENT -->
   <audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
+    <source src="https://archive.org/download/dni.ncaa.IGRMS-A_568-AC/IGRMS-A_568-AC_SIDE_A.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -1224,7 +1306,7 @@
       venueName: "Grand Plaza Ballroom",
       venueAddress: "Taj Palace Mansingh Road, New Delhi, Delhi 110011",
       mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.6063990666133!2d77.22744317614051!3d28.611598475677443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5d34a413d5%3A0x6b44747ebc6114eb!2sTaj%20Mahal%20Hotel!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
-      bgMusicUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+      bgMusicUrl: "https://archive.org/download/dni.ncaa.IGRMS-A_568-AC/IGRMS-A_568-AC_SIDE_A.mp3"
     };
 
     const defaultWishes = [
@@ -1556,16 +1638,16 @@
         canvas.width = rect.width || 95;
         canvas.height = rect.height || 125;
 
-        // Draw champagne/rose gold metallic foil mask
+        // Draw soothing peach pastel mask
         const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        grad.addColorStop(0, '#ebdcc5');
-        grad.addColorStop(0.5, '#faefe3');
-        grad.addColorStop(1, '#c39c63');
+        grad.addColorStop(0, '#FFF0E5');
+        grad.addColorStop(0.5, '#FAF8F5');
+        grad.addColorStop(1, '#FFE3D1');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Draw light shimmer circles
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
         for(let i = 0; i < 15; i++) {
           ctx.beginPath();
           ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 2 + 1, 0, Math.PI*2);
@@ -1573,7 +1655,7 @@
         }
 
         // Draw scratch cues
-        ctx.fillStyle = '#8c5d3a';
+        ctx.fillStyle = '#5A453A';
         ctx.font = 'bold 9px Montserrat, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
