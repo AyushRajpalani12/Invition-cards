@@ -386,6 +386,172 @@
       letter-spacing: 1px;
       text-transform: uppercase;
     }
+
+    /* Pricing & Terms Section */
+    .pricing-terms-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 60px auto 20px;
+      text-align: left;
+      padding: 0 20px;
+    }
+
+    .pricing-card, .terms-card, .services-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .pricing-card::before, .terms-card::before, .services-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    }
+
+    .services-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .services-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .services-list li i {
+      color: var(--gold-primary);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .section-title-sm {
+      font-family: var(--font-serif);
+      color: var(--gold-secondary);
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(184, 147, 36, 0.15);
+      padding-bottom: 10px;
+    }
+
+    .section-title-sm i {
+      color: var(--gold-primary);
+    }
+
+    .price-item {
+      margin-bottom: 20px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+      padding-bottom: 15px;
+    }
+    
+    .price-item:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .price-title {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      color: var(--text-light);
+      font-size: 15px;
+      display: inline-block;
+    }
+
+    .price-amount {
+      float: right;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--gold-primary);
+      font-size: 18px;
+    }
+
+    .price-desc {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.5;
+      clear: both;
+    }
+
+    .scanner-notice {
+      background: rgba(184, 147, 36, 0.08);
+      border: 1px solid rgba(184, 147, 36, 0.25);
+      border-radius: 6px;
+      padding: 12px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 25px;
+      line-height: 1.5;
+    }
+
+    .scanner-notice i {
+      color: var(--gold-primary);
+      margin-right: 6px;
+      font-size: 14px;
+    }
+
+    .terms-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .terms-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 15px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .terms-list li i {
+      margin-top: 3px;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .terms-list li i.fa-circle-check {
+      color: #2ec4b6;
+    }
+
+    .terms-list li i.fa-circle-xmark {
+      color: #e71d36;
+    }
+
+    .terms-list li i.fa-file-pen {
+      color: var(--gold-primary);
+    }
+
+    .terms-list li strong {
+      color: var(--text-light);
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -661,6 +827,82 @@
           <a href="birthday2.html" class="btn-preview">Live Preview</a>
         </div>
 
+      </div>
+    </div>
+
+    <!-- Pricing & Terms Section -->
+    <div class="pricing-terms-container">
+      <div class="pricing-card">
+        <h3 class="section-title-sm"><i class="fa-solid fa-tags"></i> Pricing Packages</h3>
+        
+        <div class="price-item">
+          <span class="price-title">Birthday Invitation Card</span>
+          <span class="price-amount">₹999</span>
+          <p class="price-desc">Soothing pastel themes, custom guest RSVP wishes, integrated music playlist, dynamic animations, and responsive single-page layouts.</p>
+        </div>
+        
+        <div class="price-item">
+          <span class="price-title">Wedding Invitation Card</span>
+          <span class="price-amount">₹1,499</span>
+          <p class="price-desc">Interactive 3D opening envelopes, 3D gates, royal farman scrolls, book flips, lotus blooms, countdown timer, lottery scratch-off, and guestbook.</p>
+        </div>
+        
+        <div class="scanner-notice">
+          <i class="fa-solid fa-qrcode"></i> <strong>Scanner Feature:</strong> QR Code scanning function (direct scan to open the card) is available with <strong>Extra Charges</strong>.
+        </div>
+      </div>
+
+      <!-- Custom Card Examples Section -->
+      <div class="services-card">
+        <h3 class="section-title-sm"><i class="fa-solid fa-wand-magic-sparkles"></i> Custom Creations</h3>
+        <p style="font-family: var(--font-sans); font-size: 12px; color: var(--text-light); margin-bottom: 15px; line-height: 1.5;">
+          We design bespoke digital invitations for all kinds of celebrations. Share your preferred theme or vision, and we will customize it to perfection:
+        </p>
+        <ul class="services-list">
+          <li>
+            <i class="fa-solid fa-ring"></i>
+            <span>Engagement & Sagai Cards</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-house-chimney"></i>
+            <span>Griha Pravesh & House Warming</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-glass-cheers"></i>
+            <span>Anniversary & Jubilee Cards</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-baby-carriage"></i>
+            <span>Baby Shower & God Bharai Invites</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-calendar-star"></i>
+            <span>Kitty Parties & Birthday Invites</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Corporate Events & Inaugurations</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="terms-card">
+        <h3 class="section-title-sm"><i class="fa-solid fa-handshake"></i> Work Policy & Deal</h3>
+        
+        <ul class="terms-list">
+          <li>
+            <i class="fa-solid fa-circle-check"></i>
+            <span><strong>Proper Payment:</strong> Payment terms are fixed and must be processed in full as agreed. No delayed splits or post-delivery negotiations allowed.</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span><strong>No Deal Modification:</strong> Once a project scope/deal is finalized, it will not be altered or changed under any circumstances. Extra requests will incur additional charges.</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-file-pen"></i>
+            <span><strong>Assets & Correction:</strong> All client data, dates, and media files must be provided beforehand. Post-finalization changes are restricted to typo corrections.</span>
+          </li>
+        </ul>
       </div>
     </div>
 
