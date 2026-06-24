@@ -1,5 +1,5 @@
 /**
- * Artful Creations - Client-Side Code Protection Script
+ * PV Creation Tech - Client-Side Code Protection Script
  * Prevents casual code theft, page saving, printing, and inspecting.
  */
 
