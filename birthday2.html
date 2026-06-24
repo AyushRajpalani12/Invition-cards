@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Invitation | Myra's 21st Celebration</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* -----------------------------------------
+       DESIGN SYSTEM (ROSE GOLD LUXURY)
+       ----------------------------------------- */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fffcf9 0%, #faefe3 50%, #f0dec5 100%);
+      --card-bg: rgba(255, 255, 255, 0.82);
+      --gold-primary: #c39c63;
+      --gold-secondary: #8c5d3a;
+      --gold-glowing: 0 0 15px rgba(195, 156, 99, 0.35);
+      --text-light: #442a1a;
+      --text-muted: #7d6555;
+      --accent: #8c5d3a;
+      --border-color: rgba(195, 156, 99, 0.28);
+      
+      --font-cursive: 'Great Vibes', cursive;
+      --font-serif: 'Cinzel', serif;
+      --font-body: 'Playfair Display', serif;
+      --font-sans: 'Montserrat', sans-serif;
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-light);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body.locked {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* -----------------------------------------
+       1. LUXURIOUS ROSE GOLD ENVELOPE (COVER PAGE)
+       ----------------------------------------- */
+    #intro-envelope {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #2d1810 0%, #150905 100%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1500px;
+      transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1), visibility 1s;
+    }
+
+    #intro-envelope.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 360px;
+      height: 600px;
+      background: #543122; /* Rich copper/rose base cardstock */
+      border-radius: 12px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.35), 0 0 35px rgba(195, 156, 99, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px 20px 40px;
+      border: 1px solid rgba(195, 156, 99, 0.25);
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .envelope-wrapper:hover {
+      transform: translateY(-5px) scale(1.01);
+    }
+
+    /* Envelope Bottom Pocket */
+    .envelope-pocket-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(135deg, #44261a 0%, #543122 100%);
+      border-top: 2px solid var(--gold-primary);
+      z-index: 5;
+      box-shadow: inset 0 15px 30px rgba(0,0,0,0.15);
+      transition: all 0.8s ease;
+    }
+
+    .envelope-pocket-bottom::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Envelope Top Flap */
+    .envelope-flap-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(135deg, #44261a 0%, #543122 100%);
+      border-bottom: 1.5px solid rgba(195, 156, 99, 0.35);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      z-index: 6;
+      transform-origin: top center;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* Cursive gold clue text */
+    .envelope-tap-reveal-text {
+      position: absolute;
+      top: 36%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-cursive);
+      color: #faefe3;
+      font-size: 32px;
+      text-align: center;
+      z-index: 7;
+      cursor: pointer;
+      pointer-events: auto;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      animation: heartbeat 2.5s infinite ease-in-out;
+      width: 100%;
+    }
+
+    /* 3D Wax Seal */
+    .wax-seal-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 10;
+      cursor: pointer;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .traditional-seal {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .traditional-seal-svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .traditional-seal-text {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-cursive);
+      font-size: 30px;
+      color: #543122; /* Dark copper/rose initials */
+      font-weight: bold;
+      pointer-events: none;
+      text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
+    }
+
+    .wax-seal-container:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+      filter: drop-shadow(0 8px 20px rgba(195, 156, 99, 0.4));
+    }
+
+    .wax-seal-container.unlocked {
+      animation: sealMelts 0.8s forwards;
+    }
+
+    /* Inner card slide up */
+    .envelope-inner-card {
+      position: absolute;
+      top: 15%;
+      left: 5%;
+      width: 90%;
+      height: 72%;
+      background: #FAF6F0;
+      border: 3px double var(--gold-primary);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(195, 156, 99, 0.15);
+      z-index: 3;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease, filter 0.8s ease;
+      transform: translateY(0) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .inner-card-monogram {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      color: var(--gold-primary);
+      border: 1px solid var(--gold-primary);
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 10px rgba(195, 156, 99, 0.1);
+    }
+
+    .inner-card-text {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--gold-secondary);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .inner-card-names {
+      font-family: var(--font-cursive);
+      font-size: 34px;
+      color: var(--text-light);
+      margin-bottom: 12px;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(195, 156, 99, 0.15);
+    }
+
+    .inner-card-invitation-text {
+      font-family: var(--font-sans);
+      font-size: 8px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 220px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .inner-card-date {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: var(--gold-primary);
+      font-weight: bold;
+      border-top: 1px solid rgba(195, 156, 99, 0.2);
+      padding-top: 5px;
+    }
+
+    /* Animation open wrappers */
+    .envelope-wrapper.open-ribbon {
+      overflow: visible !important;
+    }
+
+    .envelope-wrapper.open-flap .envelope-flap-top {
+      transform: rotateX(180deg);
+      filter: brightness(0.85);
+      z-index: 1;
+    }
+
+    .envelope-wrapper.open-flap .envelope-tap-reveal-text {
+      opacity: 0;
+      filter: blur(5px);
+      transition: all 0.8s ease;
+    }
+
+    .envelope-wrapper.slide-up {
+      overflow: visible !important;
+    }
+    
+    .envelope-wrapper.slide-up .envelope-inner-card {
+      opacity: 1;
+      z-index: 4;
+      transform: translateY(-80%) scale(1.04);
+      box-shadow: 0 -10px 25px rgba(0,0,0,0.15);
+    }
+
+    .envelope-wrapper.expand-card .envelope-inner-card {
+      z-index: 12;
+      transform: translateY(-80%) scale(2.8);
+      opacity: 0;
+      filter: blur(12px);
+      transition: transform 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045), 
+                  opacity 0.6s ease-out, 
+                  filter 0.6s ease-out;
+    }
+
+    /* -----------------------------------------
+       2. FLOATING WIDGETS
+       ----------------------------------------- */
+    .floating-widget {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .widget-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #FAF6F0;
+      border: 1px solid var(--gold-primary);
+      box-shadow: 0 4px 15px rgba(84, 49, 34, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-secondary);
+      font-size: 18px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    .widget-btn:hover {
+      transform: scale(1.1) rotate(5deg);
+      background: var(--gold-secondary);
+      color: #FAF6F0;
+      box-shadow: 0 6px 20px rgba(84, 49, 34, 0.35);
+    }
+
+    .music-widget.playing {
+      animation: spin-vinyl 5s linear infinite;
+      border-color: var(--gold-primary);
+      background: var(--gold-secondary);
+      color: #FAF6F0;
+    }
+
+    @keyframes spin-vinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* -----------------------------------------
+       3. MAIN INVITATION DETAILS PAGE
+       ----------------------------------------- */
+    #main-content {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.2s ease-in, visibility 1.2s;
+    }
+
+    #main-content.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding: 40px 30px;
+      background: var(--card-bg);
+      border: 3px double var(--gold-primary);
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(84, 49, 34, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .celebration-monogram {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: var(--gold-primary);
+      border: 2px solid var(--gold-primary);
+      border-radius: 50%;
+      width: 75px;
+      height: 75px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: inset 0 0 10px rgba(195, 156, 99, 0.15);
+    }
+
+    .celebration-sub {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .celebration-name {
+      font-family: var(--font-cursive);
+      font-size: 58px;
+      color: var(--text-light);
+      margin-bottom: 15px;
+      text-shadow: 0 1px 2px rgba(195, 156, 99, 0.15);
+      line-height: 1.2;
+    }
+
+    .ornament-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .ornament-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
+    }
+
+    .ornament-divider i {
+      color: var(--gold-primary);
+      font-size: 14px;
+    }
+
+    .celebration-invite {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .celebration-date {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-secondary);
+      font-weight: 600;
+      margin-top: 15px;
+      display: inline-block;
+    }
+
+    /* Content Cards/Sections */
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 40px 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(84, 49, 34, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: var(--transition-smooth);
+    }
+
+    section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(84, 49, 34, 0.12);
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--text-light);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-cursive);
+      font-size: 26px;
+      color: var(--gold-primary);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    /* -----------------------------------------
+       4. COUNTDOWN TIMER
+       ----------------------------------------- */
+    .countdown-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .countdown-box {
+      width: 75px;
+      height: 75px;
+      border: 1px solid rgba(195, 156, 99, 0.3);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(84, 49, 34, 0.05);
+    }
+
+    .countdown-val {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .countdown-lbl {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold-primary);
+      margin-top: 2px;
+    }
+
+    /* -----------------------------------------
+       5. 3-CARD INLINE SCRATCH DATE
+       ----------------------------------------- */
+    .scratch-reveal-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .scratch-cards-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+
+    .scratch-card-wrapper {
+      position: relative;
+      width: 95px;
+      height: 125px;
+      background: #fffdfb;
+      border-radius: 8px;
+      border: 1.5px solid var(--gold-primary);
+      box-shadow: 0 5px 12px rgba(84, 49, 34, 0.08);
+      overflow: hidden;
+    }
+
+    .scratch-under-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5px;
+    }
+
+    .scratch-lbl {
+      font-family: var(--font-sans);
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .scratch-val {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--text-light);
+    }
+
+    .scratch-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    /* -----------------------------------------
+       6. ITINERARY TIMELINE
+       ----------------------------------------- */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      margin: 15px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--gold-primary) 0%, rgba(195, 156, 99, 0.1) 100%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 35px;
+    }
+
+    .timeline-badge {
+      position: absolute;
+      left: -33px;
+      top: 2px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--gold-secondary);
+      border: 1px solid var(--gold-primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      box-shadow: 0 2px 6px rgba(84, 49, 34, 0.2);
+    }
+
+    .timeline-card {
+      background: rgba(255,255,255,0.65);
+      border: 1px solid rgba(195, 156, 99, 0.15);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .story-time {
+      font-family: var(--font-serif);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .timeline-card h4 {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--text-light);
+      margin-bottom: 5px;
+    }
+
+    .timeline-card p {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* -----------------------------------------
+       7. THE VENUE MAP
+       ----------------------------------------- */
+    .venue-details-block {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .venue-name {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--text-light);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .venue-address {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .map-wrapper {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
+      display: block;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      border: 1px solid var(--gold-primary);
+      background: transparent;
+      color: var(--gold-primary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-action:hover {
+      background: var(--gold-primary);
+      color: #FAF6F0;
+      box-shadow: var(--gold-glowing);
+    }
+
+    /* -----------------------------------------
+       8. RSVP FORM & GUESTBOOK
+       ----------------------------------------- */
+    .rsvp-form-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 12px 15px;
+      color: var(--text-light);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      transition: var(--transition-smooth);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 10px rgba(195, 156, 99, 0.15);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .radio-label input {
+      accent-color: var(--gold-primary);
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      border: 2px solid var(--gold-primary);
+      color: var(--gold-primary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background: var(--gold-primary);
+      color: #FAF6F0;
+      box-shadow: var(--gold-glowing);
+    }
+
+    .wishes-display {
+      margin-top: 30px;
+      border-top: 1px dashed rgba(195, 156, 99, 0.2);
+      padding-top: 20px;
+    }
+
+    .wish-card {
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(195, 156, 99, 0.12);
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+
+    .wish-card-name {
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      color: var(--gold-secondary);
+      margin-bottom: 5px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wish-card-status {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 2px 7px;
+      border-radius: 12px;
+      background: rgba(195, 156, 99, 0.12);
+      color: var(--gold-secondary);
+    }
+
+    .wish-card-status.no {
+      background: rgba(185, 28, 28, 0.1);
+      color: #b91c1c;
+    }
+
+    .wish-card-text {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* KEYFRAMES */
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.08); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.08); }
+      70% { transform: scale(1); }
+    }
+
+    @keyframes sealMelts {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+        filter: blur(2px);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(0.6) translateY(30px);
+        filter: blur(8px);
+        opacity: 0;
+      }
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 60px 20px 40px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+
+    .footer-title {
+      font-family: var(--font-cursive);
+      font-size: 38px;
+      color: var(--gold-secondary);
+    }
+
+    .footer-hashtag {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body class="locked">
+
+  <!-- Background floating bubbles/sparkles canvas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- 1. ROSE GOLD ENVELOPE (COVER PAGE) -->
+  <div id="intro-envelope">
+    <div class="envelope-wrapper" id="envelope">
+      <!-- Gradient Cover Shade -->
+      <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, rgba(84,49,34,0.15) 60%, rgba(84,49,34,0.6) 100%); pointer-events:none; z-index:2;"></div>
+      
+      <!-- Slide-up card -->
+      <div class="envelope-inner-card" id="innerCard">
+        <div class="inner-card-monogram" id="innerCardMonogram">M</div>
+        <div class="inner-card-text">Birthday Invitation</div>
+        <div class="inner-card-names" id="innerCardNames">Myra's 21st</div>
+        <div class="inner-card-invitation-text">
+          Join us for a grand evening of toasts, acoustic tunes, and sweet celebration to mark this beautiful milestone.
+        </div>
+        <div class="inner-card-date" id="innerCardDate">December 18, 2026</div>
+      </div>
+      
+      <!-- Top flap & Bottom pocket -->
+      <div class="envelope-flap-top"></div>
+      <div class="envelope-pocket-bottom"></div>
+      
+      <!-- Seal interactive elements -->
+      <div class="envelope-tap-reveal-text" onclick="openEnvelope()">Tap to Reveal</div>
+      
+      <div class="wax-seal-container" id="sealBtn" onclick="openEnvelope()" style="pointer-events: auto;">
+        <div class="traditional-seal">
+          <svg class="traditional-seal-svg" viewBox="0 0 120 120">
+            <defs>
+              <radialGradient id="roseGoldSealGrad" cx="50%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#ffebd5" />
+                <stop offset="45%" stop-color="#e2b785" />
+                <stop offset="90%" stop-color="#b48450" />
+                <stop offset="100%" stop-color="#805628" />
+              </radialGradient>
+              <filter id="sealDepth" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.35" />
+              </filter>
+            </defs>
+            <path d="M 60,10 C 90,8 112,28 110,58 C 108,88 88,112 58,110 C 28,108 8,88 10,58 C 12,28 30,12 60,10 Z" fill="url(#roseGoldSealGrad)" filter="url(#sealDepth)"/>
+            <circle cx="60" cy="60" r="40" fill="none" stroke="#faefe3" stroke-width="2" opacity="0.8"/>
+            <circle cx="60" cy="60" r="35" fill="none" stroke="#e2b785" stroke-width="1" opacity="0.5" stroke-dasharray="2 2"/>
+          </svg>
+          <div class="traditional-seal-text" id="sealLetter">M</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. MUSIC FLOATING WIDGET -->
+  <div class="floating-widget">
+    <div class="widget-btn music-widget" id="musicBtn" onclick="toggleMusic()" title="Play Music">
+      <i class="fa-solid fa-music"></i>
+    </div>
+  </div>
+
+  <!-- 3. MAIN INVITATION CONTENT -->
+  <div id="main-content">
+    
+    <!-- HEADER -->
+    <header>
+      <div class="celebration-monogram" id="celebrationMonogram">M</div>
+      <div class="celebration-sub">The Birthday Celebration</div>
+      <h1 class="celebration-name" id="celebrantTitle">Myra's 21st</h1>
+      <div class="ornament-divider">
+        <span class="ornament-line"></span>
+        <i class="fa-solid fa-star"></i>
+        <span class="ornament-line"></span>
+      </div>
+      <div class="celebration-invite">
+        We joyfully invite you to raise a glass and celebrate a quarter-century milestone
+      </div>
+      <div>
+        <span class="celebration-date" id="celebrationDateText">Friday, December 18, 2026</span>
+      </div>
+    </header>
+
+    <!-- COUNTDOWN -->
+    <section>
+      <h2 class="section-title">Days to Celebrate</h2>
+      <div class="countdown-container" id="countdown">
+        <div class="countdown-box">
+          <div class="countdown-val" id="cdDays">00</div>
+          <div class="countdown-lbl">Days</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-val" id="cdHours">00</div>
+          <div class="countdown-lbl">Hours</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-val" id="cdMins">00</div>
+          <div class="countdown-lbl">Mins</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-val" id="cdSecs">00</div>
+          <div class="countdown-lbl">Secs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCRATCH CARD DATE SURPRISE -->
+    <section>
+      <h2 class="section-title">Unlock Ceremony Date</h2>
+      <h3 class="section-subtitle">Scratch cards below to reveal</h3>
+      
+      <div class="scratch-reveal-block">
+        <div class="scratch-cards-row">
+          <!-- Month -->
+          <div class="scratch-card-wrapper">
+            <div class="scratch-under-content">
+              <div class="scratch-lbl">Month</div>
+              <div class="scratch-val" id="scratchMonth">DECEMBER</div>
+            </div>
+            <canvas class="scratch-canvas" id="canvasMonth"></canvas>
+          </div>
+
+          <!-- Day -->
+          <div class="scratch-card-wrapper">
+            <div class="scratch-under-content">
+              <div class="scratch-lbl">Day</div>
+              <div class="scratch-val" id="scratchDay">18</div>
+            </div>
+            <canvas class="scratch-canvas" id="canvasDay"></canvas>
+          </div>
+
+          <!-- Year -->
+          <div class="scratch-card-wrapper">
+            <div class="scratch-under-content">
+              <div class="scratch-lbl">Year</div>
+              <div class="scratch-val" id="scratchYear">2026</div>
+            </div>
+            <canvas class="scratch-canvas" id="canvasYear"></canvas>
+          </div>
+        </div>
+        <p style="font-family: var(--font-sans); font-size:11px; letter-spacing:1px; color: var(--text-muted); font-style:italic; text-align:center;">Swipe with mouse pointer or touch screen to reveal date!</p>
+      </div>
+    </section>
+
+    <!-- CELEBRATION TIMELINE ITINERARY -->
+    <section>
+      <h2 class="section-title">The Celebration Plan</h2>
+      <div class="timeline">
+        <!-- Item 1 -->
+        <div class="timeline-item">
+          <div class="timeline-badge"><i class="fa-solid fa-wine-glass"></i></div>
+          <div class="timeline-card">
+            <span class="story-time">07:00 PM onwards</span>
+            <h4>Cocktail Reception</h4>
+            <p>Welcome champagne, acoustic guitar covers, and light Hors d'oeuvres inside the lounge area.</p>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="timeline-item">
+          <div class="timeline-badge"><i class="fa-solid fa-cake-candles"></i></div>
+          <div class="timeline-card">
+            <span class="story-time">08:30 PM</span>
+            <h4>Cake Cutting & Toast</h4>
+            <p>Special toast from family and friends followed by the grand birthday cake cutting ceremony.</p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="timeline-item">
+          <div class="timeline-badge"><i class="fa-solid fa-music"></i></div>
+          <div class="timeline-card">
+            <span class="story-time">09:30 PM</span>
+            <h4>Dinner & Dancing</h4>
+            <p>A grand buffet dinner and open dance floor with live music and DJ entertainment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE VENUE LOCATION -->
+    <section>
+      <h2 class="section-title">The Venue</h2>
+      <div class="venue-details-block">
+        <div class="venue-name" id="venueTitle">Grand Plaza Ballroom</div>
+        <div class="venue-address" id="venueAddr">Taj Palace Mansingh Road, New Delhi, Delhi 110011</div>
+      </div>
+      
+      <div class="map-wrapper">
+        <iframe id="mapFrame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.6063990666133!2d77.22744317614051!3d28.611598475677443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5d34a413d5%3A0x6b44747ebc6114eb!2sTaj%20Mahal%20Hotel!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"></iframe>
+      </div>
+
+      <div style="text-align: center;">
+        <a id="mapNavBtn" class="btn-action" href="https://maps.google.com/?q=Taj+Mahal+Hotel+New+Delhi" target="_blank">
+          <i class="fa-solid fa-diamond-turn-right"></i> Navigate in Google Maps
+        </a>
+      </div>
+    </section>
+
+    <!-- RSVP & wishes GUESTBOOK -->
+    <section>
+      <h2 class="section-title">RSVP & Wishes</h2>
+      
+      <div class="rsvp-form-container">
+        <form onsubmit="submitRSVP(event)">
+          <div class="form-group">
+            <label for="rsvpName">Full Name</label>
+            <input type="text" class="form-control" id="rsvpName" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Will you attend?</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="rsvpAttendance" value="Yes" checked> Yes, joyfully!
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="rsvpAttendance" value="No"> No, sending blessings
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvpMessage">Send Wishes & Blessings</label>
+            <textarea class="form-control" id="rsvpMessage" rows="3" placeholder="Write a beautiful blessing..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Submit Confirmation</button>
+        </form>
+
+        <!-- Wishes Guestbook Wall -->
+        <div class="wishes-display" id="wishesList">
+          <p id="noWishesTxt" style="font-family: var(--font-body); font-style:italic; font-size:13px; color:var(--text-muted); text-align:center; padding: 20px 0;">No wishes posted yet. Write a beautiful blessing for Myra!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-title" id="footerTitle">Myra's 21st</div>
+      <div class="footer-hashtag" style="margin-bottom: 8px;">#MyraGoldenBirthday2026</div>
+      <div style="font-family: var(--font-sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted);">Designed by Artful Creations</div>
+    </footer>
+
+  </div>
+
+  <!-- AUDIO ELEMENT -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* -----------------------------------------
+       A. DATA CONFIGURATION & INITIALIZER
+       ----------------------------------------- */
+    const birthdayConfig = {
+      name: "Myra",
+      age: "21st",
+      date: "2026-12-18",
+      venueName: "Grand Plaza Ballroom",
+      venueAddress: "Taj Palace Mansingh Road, New Delhi, Delhi 110011",
+      mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.6063990666133!2d77.22744317614051!3d28.611598475677443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5d34a413d5%3A0x6b44747ebc6114eb!2sTaj%20Mahal%20Hotel!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+      bgMusicUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+    };
+
+    const defaultWishes = [
+      { name: "Kunal Sharma", status: "Yes", text: "Happy 21st Birthday Myra! Wishing you all the happiness and fun in the world. Excited for the party!" },
+      { name: "Ananya Sen", status: "Yes", text: "Happy golden birthday Myra! You deserve the absolute best. Can't wait to raise a glass!" },
+      { name: "Rohan Khanna", status: "No", text: "Wishing you a very Happy Birthday! Wish I could be there in person, sending lots of love!" }
+    ];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Force scroll reset
+      window.scrollTo(0, 0);
+
+      // 1. Initial config binding
+      applyBirthdayConfig(false);
+
+      // 2. Load wishes
+      loadWishes();
+
+      // 3. Initialize background bubble particles canvas
+      initFloatingBubbles();
+
+      // 4. Initialize scratch cards
+      initScratchCards();
+    });
+
+    function applyBirthdayConfig(reinitScratch = true) {
+      const name = birthdayConfig.name;
+      const age = birthdayConfig.age;
+      const dateStr = birthdayConfig.date;
+      
+      const celebrantInit = name.charAt(0).toUpperCase();
+
+      // Update monogram circles
+      const sealLetter = document.getElementById('sealLetter');
+      if (sealLetter) sealLetter.innerText = celebrantInit;
+      
+      const innerCardMonogram = document.getElementById('innerCardMonogram');
+      if (innerCardMonogram) innerCardMonogram.innerText = celebrantInit;
+
+      const celebrationMonogram = document.getElementById('celebrationMonogram');
+      if (celebrationMonogram) celebrationMonogram.innerText = celebrantInit;
+
+      // Update name headings
+      document.getElementById('celebrantTitle').innerText = `${name}'s ${age}`;
+      document.getElementById('footerTitle').innerText = `${name}'s ${age}`;
+      document.getElementById('innerCardNames').innerText = `${name}'s ${age}`;
+
+      // Date parsing & formatting
+      const d = new Date(dateStr + "T00:00:00");
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const formatted = d.toLocaleDateString('en-US', options);
+      
+      document.getElementById('celebrationDateText').innerText = formatted;
+      document.getElementById('innerCardDate').innerText = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      // Scratch values
+      const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+      document.getElementById('scratchMonth').innerText = monthNames[d.getMonth()];
+      document.getElementById('scratchDay').innerText = d.getDate();
+      document.getElementById('scratchYear').innerText = d.getFullYear();
+
+      // Update venue details
+      const venueName = birthdayConfig.venueName;
+      const venueAddress = birthdayConfig.venueAddress;
+      
+      document.getElementById('venueTitle').innerText = venueName;
+      document.getElementById('venueAddr').innerText = venueAddress;
+      document.getElementById('mapFrame').src = birthdayConfig.mapEmbedUrl;
+      document.getElementById('mapNavBtn').href = `https://maps.google.com/?q=${encodeURIComponent(venueName + ", " + venueAddress)}`;
+
+      // Initialize countdown
+      startCountdown(dateStr + "T19:00:00");
+
+      if (reinitScratch) {
+        initScratchCards();
+      }
+    }
+
+    /* -----------------------------------------
+       B. INTERACTIVE ACOUSTIC CHIME & AUDIO
+       ----------------------------------------- */
+    function playTraditionalChime() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        
+        // Pentatonic acoustic guitar/harp chord (C4, D4, E4, G4, A4)
+        const notes = [261.63, 293.66, 329.63, 392.00, 440.00];
+        
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+          osc.frequency.linearRampToValueAtTime(freq + 4, now + idx * 0.12 + 0.4); // light sway
+          
+          gain.gain.setValueAtTime(0, now + idx * 0.12);
+          gain.gain.linearRampToValueAtTime(0.15, now + idx * 0.12 + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.7);
+          
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          
+          osc.start(now + idx * 0.12);
+          osc.stop(now + idx * 0.12 + 0.8);
+        });
+      } catch(e) {
+        console.log("Audio arpeggio blocked", e);
+      }
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById('bgMusic');
+      const btn = document.getElementById('musicBtn');
+      if (music.paused) {
+        startMusic();
+      } else {
+        music.pause();
+        btn.classList.remove('playing');
+        btn.title = "Play Music";
+      }
+    }
+
+    function startMusic() {
+      const music = document.getElementById('bgMusic');
+      const btn = document.getElementById('musicBtn');
+      music.volume = 0.5;
+      music.play().then(() => {
+        btn.classList.add('playing');
+        btn.title = "Pause Music";
+      }).catch(err => {
+        console.log("Audio block active", err);
+      });
+    }
+
+    /* -----------------------------------------
+       C. ENVELOPE OPEN TIMELINE SEQUENCE
+       ----------------------------------------- */
+    function openEnvelope() {
+      const envelope = document.getElementById('envelope');
+      if (envelope.classList.contains('open-ribbon') || envelope.classList.contains('slide-up') || envelope.classList.contains('expand-card')) return;
+
+      const seal = document.getElementById('sealBtn');
+      seal.classList.add('unlocked');
+      
+      // Step 1: Open Ribbon/Seal
+      envelope.classList.add('open-ribbon');
+      
+      // Chime and Confetti trigger
+      playTraditionalChime();
+      
+      const sealRect = seal.getBoundingClientRect();
+      const centerX = (sealRect.left + sealRect.width / 2) / window.innerWidth;
+      const centerY = (sealRect.top + sealRect.height / 2) / window.innerHeight;
+
+      setTimeout(() => {
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 80,
+            spread: 50,
+            origin: { x: centerX || 0.5, y: centerY || 0.6 },
+            colors: ['#c39c63', '#fff5ea', '#ffccd5'] // Rose gold, cream, pink
+          });
+        }
+      }, 150);
+
+      // Step 2: Open Flap 3D swing at 500ms
+      setTimeout(() => {
+        envelope.classList.add('open-flap');
+      }, 500);
+
+      // Step 3: Slide card up out of the pocket at 1100ms
+      setTimeout(() => {
+        envelope.classList.add('slide-up');
+      }, 1100);
+
+      // Step 4: Fullscreen zoom & details page fade-in
+      setTimeout(() => {
+        const intro = document.getElementById('intro-envelope');
+        const main = document.getElementById('main-content');
+        
+        envelope.classList.add('expand-card');
+        intro.classList.add('fade-out');
+        document.body.classList.remove('locked');
+        window.scrollTo(0, 0);
+        
+        setTimeout(() => {
+          main.classList.add('visible');
+        }, 850);
+        
+        startMusic();
+      }, 2300);
+    }
+
+    /* -----------------------------------------
+       D. FLOATING BOKEH BUBBLES CANVAS LOGIC
+       ----------------------------------------- */
+    function initFloatingBubbles() {
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+      
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const bubbleCount = width < 600 ? 18 : 35;
+      const bubbles = [];
+      const colors = [
+        'rgba(247, 222, 203, 0.45)', // Rose Gold
+        'rgba(253, 246, 237, 0.4)',  // Champagne Cream
+        'rgba(255, 239, 235, 0.45)', // Misty Rose
+        'rgba(226, 183, 133, 0.35)'  // Warm Gold
+      ];
+
+      class Bubble {
+        constructor() {
+          this.reset();
+          this.y = Math.random() * height;
+        }
+
+        reset() {
+          this.x = Math.random() * width;
+          this.y = height + 20;
+          this.size = Math.random() * 20 + 8;
+          this.speedY = -(Math.random() * 0.9 + 0.3);
+          this.speedX = Math.random() * 0.4 - 0.2;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.sway = Math.random() * 100;
+          this.swaySpeed = Math.random() * 0.02 + 0.005;
+        }
+
+        update() {
+          this.y += this.speedY;
+          this.x += this.speedX + Math.sin(this.sway) * 0.25;
+          this.sway += this.swaySpeed;
+
+          if (this.y < -20 || this.x < -20 || this.x > width + 20) {
+            this.reset();
+          }
+        }
+
+        draw() {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = 'rgba(255,255,255,0.4)';
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      for (let i = 0; i < bubbleCount; i++) {
+        bubbles.push(new Bubble());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        bubbles.forEach(b => {
+          b.update();
+          b.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    /* -----------------------------------------
+       E. COUNTDOWN TIMER
+       ----------------------------------------- */
+    function startCountdown(targetIsoDate) {
+      if (countdownInterval) clearInterval(countdownInterval);
+      const targetTime = new Date(targetIsoDate).getTime();
+      
+      const updateTimer = () => {
+        const now = new Date().getTime();
+        const diff = targetTime - now;
+        
+        if (diff <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('cdDays').innerText = "00";
+          document.getElementById('cdHours').innerText = "00";
+          document.getElementById('cdMins').innerText = "00";
+          document.getElementById('cdSecs').innerText = "00";
+          return;
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        document.getElementById('cdDays').innerText = String(days).padStart(2, '0');
+        document.getElementById('cdHours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('cdMins').innerText = String(mins).padStart(2, '0');
+        document.getElementById('cdSecs').innerText = String(secs).padStart(2, '0');
+      };
+
+      updateTimer();
+      countdownInterval = setInterval(updateTimer, 1000);
+    }
+
+    /* -----------------------------------------
+       F. 3-CARD INLINE SCRATCH CARD LOGIC
+       ----------------------------------------- */
+    function initScratchCards() {
+      const cards = [
+        { id: 'canvasMonth', revealed: false },
+        { id: 'canvasDay', revealed: false },
+        { id: 'canvasYear', revealed: false }
+      ];
+
+      cards.forEach(c => {
+        const canvas = document.getElementById(c.id);
+        if(!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width || 95;
+        canvas.height = rect.height || 125;
+
+        // Draw champagne/rose gold metallic foil mask
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        grad.addColorStop(0, '#ebdcc5');
+        grad.addColorStop(0.5, '#faefe3');
+        grad.addColorStop(1, '#c39c63');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw light shimmer circles
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+        for(let i = 0; i < 15; i++) {
+          ctx.beginPath();
+          ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 2 + 1, 0, Math.PI*2);
+          ctx.fill();
+        }
+
+        // Draw scratch cues
+        ctx.fillStyle = '#8c5d3a';
+        ctx.font = 'bold 9px Montserrat, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('SCRATCH', canvas.width / 2, canvas.height / 2);
+
+        let isDrawing = false;
+
+        const getPos = (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+          return { x: clientX - rect.left, y: clientY - rect.top };
+        };
+
+        const scratch = (x, y) => {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.arc(x, y, 15, 0, Math.PI * 2);
+          ctx.fill();
+          checkReveal();
+        };
+
+        const checkReveal = () => {
+          if (c.revealed) return;
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const pixels = imgData.data;
+          let transparent = 0;
+
+          for (let i = 3; i < pixels.length; i += 16) {
+            if (pixels[i] === 0) transparent++;
+          }
+
+          const total = pixels.length / 16;
+          const percent = (transparent / total) * 100;
+
+          if (percent > 45) {
+            c.revealed = true;
+            canvas.style.transition = 'opacity 0.6s ease';
+            canvas.style.opacity = '0';
+            setTimeout(() => { canvas.style.display = 'none'; }, 600);
+
+            if (typeof confetti === 'function') {
+              try {
+                // Celebration burst!
+                confetti({
+                  particleCount: 120,
+                  spread: 80,
+                  origin: { y: 0.65 },
+                  colors: ['#c39c63', '#faefe3', '#ffd700', '#fff']
+                });
+              } catch(e) {}
+            }
+          }
+        };
+
+        const startScratch = (e) => { isDrawing = true; const pos = getPos(e); scratch(pos.x, pos.y); };
+        const scratchMove = (e) => { if (!isDrawing) return; e.preventDefault(); const pos = getPos(e); scratch(pos.x, pos.y); };
+        const stopScratch = () => { isDrawing = false; };
+
+        canvas.addEventListener('mousedown', startScratch);
+        canvas.addEventListener('mousemove', scratchMove);
+        canvas.addEventListener('mouseup', stopScratch);
+        canvas.addEventListener('mouseleave', stopScratch);
+        canvas.addEventListener('touchstart', startScratch);
+        canvas.addEventListener('touchmove', scratchMove);
+        canvas.addEventListener('touchend', stopScratch);
+      });
+    }
+
+    /* -----------------------------------------
+       G. RSVP GUESTBOOK & SUBMISSION
+       ----------------------------------------- */
+    function loadWishes() {
+      let stored = localStorage.getItem('birthday_wishes_chic');
+      let wishes = stored ? JSON.parse(stored) : defaultWishes;
+      
+      const list = document.getElementById('wishesList');
+      const placeholder = document.getElementById('noWishesTxt');
+
+      if (wishes.length > 0) {
+        placeholder.style.display = 'none';
+        list.innerHTML = '';
+        wishes.forEach(w => {
+          appendWishDOM(w.name, w.status, w.text);
+        });
+      } else {
+        placeholder.style.display = 'block';
+      }
+    }
+
+    function appendWishDOM(name, status, message) {
+      const list = document.getElementById('wishesList');
+      const card = document.createElement('div');
+      card.className = 'wish-card';
+      
+      const attendingClass = status === 'No' ? 'wish-card-status no' : 'wish-card-status';
+      const attendingText = status === 'Yes' ? 'Attending' : 'Not Attending';
+
+      card.innerHTML = `
+        <div class="wish-card-name">
+          ${escapeHTML(name)}
+          <span class="${attendingClass}">${attendingText}</span>
+        </div>
+        <div class="wish-card-text">${escapeHTML(message)}</div>
+      `;
+      
+      list.prepend(card);
+    }
+
+    function submitRSVP(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('rsvpName').value.trim();
+      const attendance = document.querySelector('input[name="rsvpAttendance"]:checked').value;
+      const message = document.getElementById('rsvpMessage').value.trim();
+
+      if (!name || !message) return;
+
+      const newWish = { name, status: attendance, text: message };
+
+      let stored = localStorage.getItem('birthday_wishes_chic');
+      let wishes = stored ? JSON.parse(stored) : [...defaultWishes];
+      wishes.push(newWish);
+      localStorage.setItem('birthday_wishes_chic', JSON.stringify(wishes));
+
+      document.getElementById('noWishesTxt').style.display = 'none';
+      appendWishDOM(name, attendance, message);
+
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 50, spread: 40, colors: ['#c39c63', '#fff'] });
+      }
+
+      document.getElementById('rsvpName').value = '';
+      document.getElementById('rsvpMessage').value = '';
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>
