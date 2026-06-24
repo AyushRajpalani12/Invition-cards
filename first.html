@@ -283,21 +283,36 @@
       transform: translate(-50%, -50%) scale(1);
       z-index: 10;
       cursor: pointer;
-      width: 130px;
-      height: 130px;
+      width: 80px;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .wax-seal-container:hover {
       transform: translate(-50%, -50%) scale(1.1);
-      filter: drop-shadow(0 8px 25px rgba(163, 124, 63, 0.45));
+      filter: drop-shadow(0 8px 25px rgba(184, 147, 36, 0.45));
     }
 
-    .wax-seal-container.unlocked {
-      animation: sealOpen 0.8s forwards;
+    .wax-seal-container.spin-up {
+      animation: spinUp 1.0s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes spinUp {
+      0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(-50%, -180%) scale(1.2) rotate(360deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -240%) scale(0) rotate(720deg);
+        opacity: 0;
+      }
     }
 
     /* 3D Ribbon Bow Structure */
@@ -669,8 +684,9 @@
     }
 
     .envelope-wrapper.open-ribbon .wax-seal-container {
-      animation: sealOpen 0.8s forwards;
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 0.5s;
     }
 
     .envelope-wrapper.open-ribbon .loop-left {
@@ -2026,52 +2042,20 @@
         <div class="wreath-heart"><i class="fa-solid fa-heart"></i></div>
       </div>
       
-      <!-- Premium Ribbon Bow Knot (Phoolon Wali Gaath) behavior lock -->
-      <div class="wax-seal-container" id="sealBtn" onclick="openEnvelope()" style="pointer-events: auto; cursor: pointer;">
-        <div class="ribbon-bow">
-          <div class="bow-loop loop-left"></div>
-          <div class="bow-loop loop-right"></div>
-          <div class="bow-tail tail-left"></div>
-          <div class="bow-tail tail-right"></div>
-          <div class="bow-center-flower">
-            <svg class="flower-svg" viewBox="0 0 100 100">
-              <defs>
-                <linearGradient id="goldPetal" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#fff5db" />
-                  <stop offset="50%" stop-color="#d4af37" />
-                  <stop offset="100%" stop-color="#aa7c11" />
-                </linearGradient>
-              </defs>
-              <g fill="url(#goldPetal)" stroke="#926b14" stroke-width="1">
-                <path d="M 50 15 C 40 25, 40 45, 50 50 C 60 45, 60 25, 50 15 Z" transform="rotate(0 50 50)" />
-                <path d="M 50 15 C 40 25, 40 45, 50 50 C 60 45, 60 25, 50 15 Z" transform="rotate(45 50 50)" />
-                <path d="M 50 15 C 40 25, 40 45, 50 50 C 60 45, 60 25, 50 15 Z" transform="rotate(90 50 50)" />
-                <path d="M 50 15 C 40 25, 40 45, 50 50 C 60 45, 60 25, 50 15 Z" transform="rotate(135 50 50)" />
-                <path d="M 50 15 C 40 25, 40 45, 50 50 C 60 45, 60 25, 50 15 Z" transform="rotate(180 50 50)" />
-                <path d="M 50 15 C 40 25, 40 45, 50 50 C 60 45, 60 25, 50 15 Z" transform="rotate(225 50 50)" />
-                <path d="M 50 15 C 40 25, 40 45, 50 50 C 60 45, 60 25, 50 15 Z" transform="rotate(270 50 50)" />
-                <path d="M 50 15 C 40 25, 40 45, 50 50 C 60 45, 60 25, 50 15 Z" transform="rotate(315 50 50)" />
-                <path d="M 50 25 C 43 32, 43 45, 50 50 C 57 45, 57 32, 50 25 Z" fill="#ebdcc5" stroke="#926b14" transform="rotate(22.5 50 50)" />
-                <path d="M 50 25 C 43 32, 43 45, 50 50 C 57 45, 57 32, 50 25 Z" fill="#ebdcc5" stroke="#926b14" transform="rotate(67.5 50 50)" />
-                <path d="M 50 25 C 43 32, 43 45, 50 50 C 57 45, 57 32, 50 25 Z" fill="#ebdcc5" stroke="#926b14" transform="rotate(112.5 50 50)" />
-                <path d="M 50 25 C 43 32, 43 45, 50 50 C 57 45, 57 32, 50 25 Z" fill="#ebdcc5" stroke="#926b14" transform="rotate(157.5 50 50)" />
-                <path d="M 50 25 C 43 32, 43 45, 50 50 C 57 45, 57 32, 50 25 Z" fill="#ebdcc5" stroke="#926b14" transform="rotate(202.5 50 50)" />
-                <path d="M 50 25 C 43 32, 43 45, 50 50 C 57 45, 57 32, 50 25 Z" fill="#ebdcc5" stroke="#926b14" transform="rotate(247.5 50 50)" />
-                <path d="M 50 25 C 43 32, 43 45, 50 50 C 57 45, 57 32, 50 25 Z" fill="#ebdcc5" stroke="#926b14" transform="rotate(292.5 50 50)" />
-                <path d="M 50 25 C 43 32, 43 45, 50 50 C 57 45, 57 32, 50 25 Z" fill="#ebdcc5" stroke="#926b14" transform="rotate(337.5 50 50)" />
-              </g>
-              <circle cx="50" cy="50" r="10" fill="url(#goldPetal)" stroke="#7e5d0a" stroke-width="1"/>
-              <circle cx="50" cy="42" r="2" fill="#fff" />
-              <circle cx="56" cy="45" r="2" fill="#fff" />
-              <circle cx="58" cy="50" r="2" fill="#fff" />
-              <circle cx="56" cy="55" r="2" fill="#fff" />
-              <circle cx="50" cy="58" r="2" fill="#fff" />
-              <circle cx="44" cy="55" r="2" fill="#fff" />
-              <circle cx="42" cy="50" r="2" fill="#fff" />
-              <circle cx="44" cy="45" r="2" fill="#fff" />
-            </svg>
-          </div>
+      <!-- Golden Coin Trigger -->
+      <div class="wax-seal-container" id="sealBtn" onclick="openEnvelope()">
+        <div class="lotus-bud" style="width: 75px; height: 75px; background: radial-gradient(circle, #fff5db 0%, #d4af37 60%, #aa7c11 100%); border: 2px solid #fff; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- Inner dash line -->
+          <div style="position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px; border: 1px dashed rgba(255,255,255,0.6); border-radius: 50%;"></div>
+          <!-- Initials -->
+          <div style="font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: #1a2f4c; text-shadow: 0 1px 1px rgba(255,255,255,0.5); z-index: 2;">M&S</div>
         </div>
+        <!-- Hidden but present layout hooks for JS configurations to avoid TypeError -->
+        <div style="display: none;">
+          <span id="sealInitM">M</span>
+          <span id="sealInitS">S</span>
+        </div>
+      </div>
         <!-- Hidden but present layout hooks for JS configurations to avoid TypeError -->
         <div style="display: none;">
           <span id="sealInitM">M</span>
@@ -2425,7 +2409,7 @@
 
   <!-- AUDIO ELEMENT -->
   <audio id="bgAudio" loop preload="auto">
-    <source id="audioSrc" src="https://archive.org/download/dni.ncaa.IGRMS-A_466-AC/IGRMS-A_466-AC_SIDE_A.mp3" type="audio/mpeg">
+    <source id="audioSrc" src="https://archive.org/download/shiv-kailash-live-in-mumbai/Shiv%20Kailash%20%28Live%20in%20Mumbai%29.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -2442,7 +2426,7 @@
       date: "2026-12-18",
       venue: "The Royal Palace, Grand Ballroom, Udaipur, Rajasthan",
       mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.2711681283626!2d73.68261317596001!3d24.579848556447234!2m3!1f0!2f0!3f0!3m2!1i1024!2i769!4f13.1!3m3!1m2!1s0x3967e564506c172d%3A0xa6212e3e6022879!2sCity%20Palace!5e0!3m2!1sen!2sin!4v1719230000000!5m2!1sen!2sin",
-      audioUrl: "https://archive.org/download/dni.ncaa.IGRMS-A_466-AC/IGRMS-A_466-AC_SIDE_A.mp3",
+      audioUrl: "https://archive.org/download/shiv-kailash-live-in-mumbai/Shiv%20Kailash%20%28Live%20in%20Mumbai%29.mp3",
       theme: "emerald"
     };
 

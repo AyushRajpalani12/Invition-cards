@@ -449,15 +449,39 @@
 
     /* Content Cards */
     section {
-      background: var(--card-bg);
+      background: linear-gradient(135deg, rgba(10, 25, 47, 0.95), rgba(17, 34, 64, 0.9));
       border-radius: 12px;
-      padding: 40px 30px;
+      padding: 45px 35px;
       margin-bottom: 40px;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.3);
-      border: 1px solid var(--border-color);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(184, 147, 36, 0.35);
       color: var(--text-light);
       position: relative;
       overflow: hidden;
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid rgba(184, 147, 36, 0.25);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    section::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border: 2px solid transparent;
+      border-image: linear-gradient(135deg, var(--gold-primary), transparent 25%, transparent 75%, var(--gold-primary)) 1;
+      pointer-events: none;
     }
 
     .section-title {
@@ -1243,28 +1267,28 @@
         <!-- Polaroid Card 1 -->
         <div class="polaroid-card">
           <div class="polaroid-photo-frame">
-            <img src="couple1.png" alt="Couple Portrait 1">
+            <img src="https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?q=80&w=600&auto=format&fit=crop" alt="Couple Portrait 1">
           </div>
           <div class="polaroid-caption">First Sight</div>
         </div>
         <!-- Polaroid Card 2 -->
         <div class="polaroid-card">
           <div class="polaroid-photo-frame">
-            <img src="couple2.png" alt="Couple Portrait 2">
+            <img src="https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=600&auto=format&fit=crop" alt="Couple Portrait 2">
           </div>
           <div class="polaroid-caption">Hand in Hand</div>
         </div>
         <!-- Polaroid Card 3 -->
         <div class="polaroid-card">
           <div class="polaroid-photo-frame">
-            <img src="couple3.png" alt="Couple Portrait 3">
+            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop" alt="Couple Portrait 3">
           </div>
           <div class="polaroid-caption">The Proposal</div>
         </div>
         <!-- Polaroid Card 4 -->
         <div class="polaroid-card">
           <div class="polaroid-photo-frame">
-            <img src="couple4.png" alt="Couple Portrait 4">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop" alt="Couple Portrait 4">
           </div>
           <div class="polaroid-caption">Sweet Beginnings</div>
         </div>
@@ -1373,7 +1397,7 @@
 
   <!-- AUDIO PLAYER ELEMENT -->
   <audio id="bgMusic" loop>
-    <source src="https://archive.org/download/dni.ncaa.IGRMS-A_466-AC/IGRMS-A_466-AC_SIDE_A.mp3" type="audio/mpeg">
+    <source src="https://archive.org/download/shiv-kailash-live-in-mumbai/Shiv%20Kailash%20%28Live%20in%20Mumbai%29.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -1387,7 +1411,7 @@
       venueName: "The Leela Palace, Udaipur",
       venueAddress: "Lake Pichola Waterfront, Udaipur, Rajasthan 313001",
       mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.324395646194!2d73.67664407596001!3d24.578028756475877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3967e55ceb292e1b%3A0x6b1070ff22ec2df4!2sThe%20Leela%20Palace%20Udaipur!5e0!3m2!1sen!2sin!4v1719230000000!5m2!1sen!2sin",
-      bgMusicUrl: "https://archive.org/download/dni.ncaa.IGRMS-A_466-AC/IGRMS-A_466-AC_SIDE_A.mp3"
+      bgMusicUrl: "https://archive.org/download/shiv-kailash-live-in-mumbai/Shiv%20Kailash%20%28Live%20in%20Mumbai%29.mp3"
     };
 
     const defaultWishes = [

@@ -251,12 +251,31 @@
       transform: translate(-50%, -50%) scale(1);
       z-index: 10;
       cursor: pointer;
-      width: 110px;
-      height: 110px;
+      width: 80px;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .wax-seal-container.spin-up {
+      animation: spinUp 1.0s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes spinUp {
+      0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(-50%, -180%) scale(1.2) rotate(360deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -240%) scale(0) rotate(720deg);
+        opacity: 0;
+      }
     }
 
     .envelope-tap-reveal-text {
@@ -314,8 +333,8 @@
     }
 
     .wax-seal-container:hover {
-      transform: translate(-50%, -50%) scale(1.08);
-      filter: drop-shadow(0 8px 20px rgba(184, 147, 36, 0.4));
+      transform: translate(-50%, -50%) scale(1.1);
+      filter: drop-shadow(0 8px 25px rgba(184, 147, 36, 0.45));
     }
 
     .wax-seal-container.unlocked {
@@ -461,8 +480,9 @@
     }
 
     .envelope-wrapper.open-ribbon .wax-seal-container {
-      animation: sealMelts 0.8s forwards;
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 0.5s;
     }
 
     .envelope-wrapper.open-flap .envelope-flap-top {
@@ -1608,33 +1628,19 @@
       <!-- Tap to Reveal Cursive Gold Text -->
       <div class="envelope-tap-reveal-text" onclick="openEnvelope()">Tap to Reveal</div>
       
-      <!-- 3D Cream Calligraphic Wax Seal -->
-      <div class="wax-seal-container" id="sealBtn" onclick="openEnvelope()" style="pointer-events: auto; cursor: pointer;">
-        <div class="traditional-seal">
-          <svg class="traditional-seal-svg" viewBox="0 0 120 120">
-            <defs>
-              <radialGradient id="ivorySealGrad" cx="50%" cy="40%" r="50%" fx="30%" fy="30%">
-                <stop offset="0%" stop-color="#ffffff" />
-                <stop offset="50%" stop-color="#FAF6F0" />
-                <stop offset="90%" stop-color="#e6dbcb" />
-                <stop offset="100%" stop-color="#c9bba6" />
-              </radialGradient>
-              <filter id="sealDepth" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.4" />
-                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#ffffff" flood-opacity="0.8" />
-              </filter>
-            </defs>
-            <path d="M 60,10 C 90,8 112,28 110,58 C 108,88 88,112 58,110 C 28,108 8,88 10,58 C 12,28 30,12 60,10 Z" fill="url(#ivorySealGrad)" filter="url(#sealDepth)"/>
-            <circle cx="60" cy="60" r="42" fill="none" stroke="#FAF6F0" stroke-width="2.5" opacity="0.9"/>
-            <circle cx="60" cy="60" r="42" fill="none" stroke="#d6c6b4" stroke-width="1.5" stroke-dasharray="2 3"/>
-            <circle cx="60" cy="60" r="36" fill="none" stroke="#d6c6b4" stroke-width="1" opacity="0.6"/>
-          </svg>
-          <div class="traditional-seal-text" id="sealInitials">
-            <span id="sealInitM">M</span>
-            <span class="seal-amp">&amp;</span>
-            <span id="sealInitS">A</span>
-          </div>
+      <!-- Golden Coin Trigger -->
+      <div class="wax-seal-container" id="sealBtn" onclick="openEnvelope()">
+        <div class="lotus-bud" style="width: 75px; height: 75px; background: radial-gradient(circle, #fff5db 0%, #d4af37 60%, #aa7c11 100%); border: 2px solid #fff; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- Inner dash line -->
+          <div style="position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px; border: 1px dashed rgba(255,255,255,0.6); border-radius: 50%;"></div>
+          <!-- Initials -->
+          <div style="font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: #5c1d24; text-shadow: 0 1px 1px rgba(255,255,255,0.5); z-index: 2;">M&A</div>
         </div>
+        <div style="display: none;">
+          <span id="sealInitM">M</span>
+          <span id="sealInitS">A</span>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -1975,7 +1981,7 @@
 
   <!-- AUDIO PLAYER ELEMENT -->
   <audio id="bgMusic" loop>
-    <source src="https://archive.org/download/dni.ncaa.IGRMS-A_466-AC/IGRMS-A_466-AC_SIDE_A.mp3" type="audio/mpeg">
+    <source src="https://archive.org/download/shiv-kailash-live-in-mumbai/Shiv%20Kailash%20%28Live%20in%20Mumbai%29.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -1989,7 +1995,7 @@
       venueName: "Rajalakshmi Kalyana Mandapam",
       venueAddress: "100 Feet Road, Banashankari, Bengaluru, Karnataka 560085",
       mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.7513568853755!2d77.53488737596001!3d12.92369651559868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3e5661b0dd6b%3A0x4a9d7bb3d15b026!2sRajalakshmi%20Kalyana%20Mantapa!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
-      bgMusicUrl: "https://archive.org/download/dni.ncaa.IGRMS-A_466-AC/IGRMS-A_466-AC_SIDE_A.mp3"
+      bgMusicUrl: "https://archive.org/download/shiv-kailash-live-in-mumbai/Shiv%20Kailash%20%28Live%20in%20Mumbai%29.mp3"
     };
 
     const defaultWishes = [

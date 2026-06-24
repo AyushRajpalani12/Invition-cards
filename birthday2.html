@@ -188,12 +188,31 @@
       transform: translate(-50%, -50%) scale(1);
       z-index: 10;
       cursor: pointer;
-      width: 110px;
-      height: 110px;
+      width: 80px;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .wax-seal-container.spin-up {
+      animation: spinUp 1.0s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes spinUp {
+      0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(-50%, -180%) scale(1.2) rotate(360deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -240%) scale(0) rotate(720deg);
+        opacity: 0;
+      }
     }
 
     .traditional-seal {
@@ -224,8 +243,8 @@
     }
 
     .wax-seal-container:hover {
-      transform: translate(-50%, -50%) scale(1.08);
-      filter: drop-shadow(0 8px 20px rgba(195, 156, 99, 0.4));
+      transform: translate(-50%, -50%) scale(1.1);
+      filter: drop-shadow(0 8px 25px rgba(184, 147, 36, 0.45));
     }
 
     .wax-seal-container.unlocked {
@@ -1075,26 +1094,17 @@
       <!-- Seal interactive elements -->
       <div class="envelope-tap-reveal-text" onclick="openEnvelope()">Tap to Reveal</div>
       
-      <div class="wax-seal-container" id="sealBtn" onclick="openEnvelope()" style="pointer-events: auto;">
-        <div class="traditional-seal">
-          <svg class="traditional-seal-svg" viewBox="0 0 120 120">
-            <defs>
-              <radialGradient id="roseGoldSealGrad" cx="50%" cy="40%" r="50%">
-                <stop offset="0%" stop-color="#ffebd5" />
-                <stop offset="45%" stop-color="#e2b785" />
-                <stop offset="90%" stop-color="#b48450" />
-                <stop offset="100%" stop-color="#805628" />
-              </radialGradient>
-              <filter id="sealDepth" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.35" />
-              </filter>
-            </defs>
-            <path d="M 60,10 C 90,8 112,28 110,58 C 108,88 88,112 58,110 C 28,108 8,88 10,58 C 12,28 30,12 60,10 Z" fill="url(#roseGoldSealGrad)" filter="url(#sealDepth)"/>
-            <circle cx="60" cy="60" r="40" fill="none" stroke="#faefe3" stroke-width="2" opacity="0.8"/>
-            <circle cx="60" cy="60" r="35" fill="none" stroke="#e2b785" stroke-width="1" opacity="0.5" stroke-dasharray="2 2"/>
-          </svg>
-          <div class="traditional-seal-text" id="sealLetter">M</div>
+      <div class="wax-seal-container" id="sealBtn" onclick="openEnvelope()">
+        <div class="lotus-bud" style="width: 75px; height: 75px; background: radial-gradient(circle, #fff5db 0%, #d4af37 60%, #aa7c11 100%); border: 2px solid #fff; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- Inner dash line -->
+          <div style="position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px; border: 1px dashed rgba(255,255,255,0.6); border-radius: 50%;"></div>
+          <!-- Initials -->
+          <div style="font-family: var(--font-serif); font-size: 24px; font-weight: 700; color: #b48450; text-shadow: 0 1px 1px rgba(255,255,255,0.5); z-index: 2;">M</div>
         </div>
+        <div style="display: none;">
+          <span id="sealLetter">M</span>
+        </div>
+      </div>
       </div>
     </div>
   </div>
